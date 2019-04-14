@@ -83,24 +83,53 @@ class MongoRequest   :
         except  Exception:
             print(Exception)
             return 'Faild To Mongo Connection'
+    ##
+    # @method: fetch data from mongodb
+    ##
+    def deleteData(self)    :
+        mongoQuery = config.deleteQuery()
+        self.data = self.mongoCollection.remove()
+        # print(self.data)
+        if(self.data['ok'] == 1.0 and self.data['n'] > 0) :
+            self.sms = ('successfully clear ',self.data['n'],' from collection: ')
+        else :
+            self.sms = ('empty collection')
 
 
 
 
-def __main__(connectOption,requestType, dataQuery) :
+"""
+@ Main function 
+@
+@
+"""
+def __main__(connectOption,requestType, dataQuery=None) :
     mPath = 'src/mongoo/mongoDBController.py'
+    try :
+        db = MongoConnection(connectOption)
+        # establishded connection
+        db.start()
 
-    db = MongoConnection(connectOption)
-    # establishded connection
-    db.start()
+        # -------------------------------------------
+        try :
+            ob = MongoRequest(db.collection)
+            if(requestType == "POST")   :
+                ob.postData(dataQuery)
+                return ob.sms
+            elif(requestType == "DELETE")   :
+                ob.deleteData()
+                return ob.sms
+            else :
+                return 'method not define : '+mPath
+        except AttributeError:
+            print('AttributeError : '+mPath)
+        # -------------------------------------------
 
-    # -------------------------------------------
-    ob = MongoRequest(db.collection)
-    if(requestType == 'POST')   :
-        ob.postData(dataQuery)
-        return ob.sms
-    else :
-        return 'method not define : '+mPath
-    # -------------------------------------------
-    # closed connection
-    db.end()
+        # closed connection
+        db.end()
+    except AttributeError:
+        print('AttributeError : '+mPath)
+    except TypeError:
+        print('TypeError : '+mPath)
+    except Exception :
+        print('Unknone Exception '+mPath+' ==> ', Exception)

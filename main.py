@@ -5,7 +5,7 @@ import src.controller.controller as controller
 # ------------Rainfall--Data--Analysis------------------------
 
 try :
-    (choice, data) = ('1', None)
+    (choice, sms) = ('1', None)
     while (choice != '0') :
         choice = config.menuDriven('Your choice:\t')
         # choice = '1'
@@ -13,15 +13,18 @@ try :
             print('\n\n----------Thank You Visit Again')
 
         elif(choice == '1')   :  # insert data from excel and store it mongoDb
-            data = controller.postData("rainfallDataPath")
+            sms = controller.postData("rainfallDataPath")
 
+        elif(choice =='2') :
+            sms = controller.deleteData()
+            print('main', sms)
         
         else :
-            data = 'invalid entry'
+            sms = 'invalid entry'
 
-        if(data) :
-            print('\n**** : main : ****\n', data)
-            data = None
+        if(sms) :
+            print('\n\n\n\n**** : main : ****\n', sms,'\n**** : main : ****\n')
+            sms = None
         # choice = '0'
 except AttributeError:
     print(' module \'src.controller.controller\' has no method of specific query')

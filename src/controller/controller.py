@@ -8,11 +8,10 @@ import src.mongoo.mongoDBController as mongoDB
 
 ## 
 # @method: transfer data from Excel --to--> mongoDB
-# @calling from 'main.py'
 # @path: string: excel file path
 ##
 def postData(path)   :
-    (xlsxData, sheetData, sms, mPath) =(None, None, False, 'src/controller.postData()')
+    (xlsxData, sheetData, sms, mPath) =(None, None, None, 'src/controller.postData()')
 
     try :   
         # @method: take input from '.xlsx' i.e. excel format
@@ -30,8 +29,23 @@ def postData(path)   :
         print('AttributeError : '+mPath)
     except TypeError:
         print('TypeError : '+mPath)
-    finally :
-        print('finally error : '+mPath)
-        return False
+    except Exception :
+        print('Unknone Exception '+mPath+' ==> ', Exception)
 
 
+##
+# @method: full clear mongo database
+##
+def deleteData()    :
+    (query, Data, sms, mPath) =(None, None, None, 'src/controller.deleteData()')
+    try :   # @method: delete all data in mongodb
+        sms = mongoDB.__main__(config.jsonData(["mongoDB"]),'DELETE')
+        if(sms) :
+            print('cont: ', sms)
+            return sms
+    except AttributeError:
+        print('AttributeError : '+mPath)
+    except TypeError:
+        print('TypeError : '+mPath)
+    except Exception :
+        print('Unknone Exception '+mPath+' ==> ', Exception)

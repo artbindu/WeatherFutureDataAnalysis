@@ -26,60 +26,8 @@ def postQuery(id,reg,yr,mon,data) :
     return (query.get("findQuery"),query.get("setQuery"),query.get("insertQuery"))
 
 
-# GET endpoint
-def queryMenuDrivenGETdata(choice) :
-    while(1)  :
-        print("\n1. <searchByRegion> \n2. <searchByYear>  \n3. <searchByMonth>")
-        print("\n4. <searchByRegionYear> \n5. <searchByRegionMonth> \n6. <searchByYearMonth>")
-        print("\n7. <searchByRegionYearMonth>")
-        choice = input("\n\n\t"+choice)
-        try :
-            if(choice=='1')   :
-                region = str(input("Searching Region:  ").upper())
-                query = {"REGION":{"$eq":region}}
-                return("searchByRegion", query)
-            elif(choice=='2') :
-                year = int(input("Searching Year:  "))
-                query = {"YEAR":{"$eq":year}}
-                return("searchByYear", query)
-            elif(choice=='3') :
-                month = str(input("Searching Month:  ").upper())
-                query = {"MONTH":{"$eq":month}}
-                return("searchByMonth", query)
-
-            elif(choice=='4') :
-                region = str(input("Searching Region:  ").upper())
-                year = int(input("Searching Year:  "))
-                query = {"REGION":{"$eq":region},"YEAR":{"$eq":year}}
-                return("searchByRegionYear", query)
-            elif(choice=='5') :
-                region = str(input("Searching Region:  ").upper())
-                month = str(input("Searching Month:  ").upper())
-                query = {"REGION":{"$eq":region},"MONTH":{"$eq":month}}
-                return("searchByRegionMonth", query)
-            elif(choice=='6') :
-                year = int(input("Searching Year:  "))
-                month = str(input("Searching Month:  ").upper())
-                query = {"YEAR":{"$eq":year},"MONTH":{"$eq":month}}
-                return("searchByYearMonth", query)
-
-            elif(choice=='7') :
-                region = str(input("Searching Region:  ").upper())
-                year = int(input("Searching Year:  "))
-                month = str(input("Searching Month:  ").upper())
-                query = {"REGION":{"$eq":region},"YEAR":{"$eq":year},"MONTH":{"$eq":month}}
-                return("searchByRegionYearMonth", query)
-
-            else :
-                print("Invalid Input")
-                choice = "Enter Your Choice: "
-        except Exception:
-            print('invalid Input Data Type')
-            choice = "Enter Your Choice: "
-
-
 # DELETE endpoint
-def queryMenuDrivenDELETEdata()   :
+def deleteQuery()   :
     # delete all data from 'collection' in mongodb
     query = {}
     return query
