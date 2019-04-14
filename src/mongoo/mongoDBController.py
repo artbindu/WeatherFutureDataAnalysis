@@ -95,8 +95,39 @@ class MongoRequest   :
         else :
             self.sms = ('empty collection')
 
-
-
+    ##
+    # @method: fetch specific data from mongodb
+    # @calling 'custom'
+    # @mongoQuery: JSON type
+    # @return mongoQuery data in array format [[region,year,month,data],[],[],...]
+    ##
+    def getData(self, mongoQuery)   :
+        self.data = self.mongoCollection.find(mongoQuery)
+        count = self.data.count()
+        if(count==0) :
+            self.data = None
+        else :
+            arrData = self.convertJson2Array()
+            (self.data, self.sms) = (arrData, "get data successfully")
+    ##
+    # @ use to convert mongoJSON data to array list
+    ##
+    def convertJson2Array(self) :
+        array = []
+        temp = ['REGION','YEAR','MONTH','DATA']
+        array.append(temp)
+        for x in self.data :
+            if(len(x)>0) :
+                temp = []
+                temp.append(x['REGION'])
+                temp.append(x['YEAR'])
+                temp.append(x['MONTH'])
+                temp.append(x['DATA'])
+            array.append(temp)
+        if(len(array)>1) :
+            return array
+        else :
+            return None
 
 """
 @ Main function 
@@ -119,6 +150,9 @@ def __main__(connectOption,requestType, dataQuery=None) :
             elif(requestType == "DELETE")   :
                 ob.deleteData()
                 return ob.sms
+            elif(requestType == "GET") :
+                ob.getData(dataQuery)
+                return (ob.data, ob.sms)
             else :
                 return 'method not define : '+mPath
         except AttributeError:

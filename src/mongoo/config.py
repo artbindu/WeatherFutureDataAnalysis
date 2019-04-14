@@ -25,7 +25,6 @@ def postQuery(id,reg,yr,mon,data) :
     }
     return (query.get("findQuery"),query.get("setQuery"),query.get("insertQuery"))
 
-
 # DELETE endpoint
 def deleteQuery()   :
     # delete all data from 'collection' in mongodb

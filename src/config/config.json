@@ -12,5 +12,12 @@
         }
     },
 
+    "expectData" : {
+        "clientQuery" :{
+            "searchingStates" : "src/expect/indianStates.json",
+            "searchingMonths" : "src/expect/months.json"
+        }
+    },
+
     "annLength" : 5
 }

@@ -8,7 +8,6 @@ try :
     (choice, sms) = ('1', None)
     while (choice != '0') :
         choice = config.menuDriven('Your choice:\t')
-        # choice = '1'
         if(choice == '0')   :
             print('\n\n----------Thank You Visit Again')
 
@@ -19,13 +18,15 @@ try :
             sms = controller.deleteData()
             print('main', sms)
         
+        elif(choice=='3') :
+            sms = controller.analysisData()
+        
         else :
             sms = 'invalid entry'
 
         if(sms) :
             print('\n\n\n\n**** : main : ****\n', sms,'\n**** : main : ****\n')
             sms = None
-        # choice = '0'
 except AttributeError:
     print(' module \'src.controller.controller\' has no method of specific query')
 except Exception:
