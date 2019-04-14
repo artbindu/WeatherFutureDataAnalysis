@@ -129,7 +129,7 @@ def analysisData() :
             if(len(pData0)>0) :
                 pDataAll.append(pData0)
                 statusAll.append("Original Data")
-            print('\n\n\\n\n\n\n\n\n\n\nClient Query: ',cQuery)
+            print('\n\n\n\n\n\n\n\n\n\nClient Query: ',cQuery)
             if(len(cQuery)==2) :
                 sms = graphControllerExpectData(pDataAll,'searchByRegionYear',statusAll)
             if(len(cQuery)==3) :

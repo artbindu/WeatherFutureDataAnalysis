@@ -8,12 +8,13 @@ import src.config.config as mainConfig
 
 class ClientQuery :
     def __init__(self) :
-        self.jfile = "src/expect/indianStates.json"
+        self.stateJFile = "src/expect/indianStates.json"
+        self.monthJFile = "src/expect/months.json"
         self.cQuery = self.clientQuery()
         # print(self.cQuery)
         
     def __del__(self) :
-        (self.jfile, self.cQuery) = (None, None)
+        (self.stateJFile, self.monthJFile, self.cQuery) = (None, None, None)
 
     def clientQuery(self) :
         try :            
@@ -21,21 +22,23 @@ class ClientQuery :
                 print("\n1. <searchByRegionYear> \n2. <searchByRegionYearMonth>")
                 choice = input("\n\n\tEnter your choice: ")
 
-                # print('json file: ',self.jfile)
-                allStatesData = json.load(open(self.jfile))
+                # print('json file: ',self.stateJFile)
+                allStatesData = json.load(open(self.stateJFile))
+                # pprint(allStatesData)
+                allMonthsData = json.load(open(self.monthJFile))
                 # pprint(allStatesData)
 
                 try: 
                     if(choice=='1') :
-                        region = self.searchingRegionName(allStatesData)
-                        year = int(input("expect Year: "))
+                        region = self.searchJSONData(allStatesData,'REGION', 'Searching State: ', 'Searching State\'s Area: ')
+                        year = self.searchYear("expect Year: ")
                         # return <'string', 'int'> type
                         # print('queryType ==> \'searchByRegion\'')
                         return([region,year])
                     elif(choice=='2') :
-                        region = self.searchingRegionName(allStatesData)
-                        month = str(input("Searching Month:  ").upper())
-                        year = int(input("expect Year: "))
+                        region = self.searchJSONData(allStatesData,'REGION', 'Searching State: ', 'Searching State\'s Area: ')
+                        month = self.searchJSONData(allMonthsData,'MONTH', "Searching Month:  ")
+                        year = self.searchYear("expect Year: ")
             
                         # return <'string', 'int', 'string'> type
                         # print('queryType ==> \'searchByRegionMonth\'')
@@ -49,27 +52,44 @@ class ClientQuery :
         except AttributeError:
             print('AttributeError : clientQuery()')
 
-    def searchingRegionName(self, statesData) :
+    def searchYear(self,sms) :
+        flag = 0
+        while(flag==0) :
+            try :
+                yr = int(input(sms))
+                if(yr>1952) :
+                    return yr
+            except  ValueError :
+                print('Did not enter Number')
+            print('Enter Again,--------') 
+            
+    def searchJSONData(self, statesData, hintsSMS, sms1, sms2=None ) :
+        if(hintsSMS == 'REGION') :
+            hintsSMS = {
+                "Searching Hints":{
+                    1: "Search with first 3/4 letters of a State/Union Territory",
+                    2: "Search with short name of each state; a.e. 'West Bengal' : 'WB'"
+                }
+            }
+        elif(hintsSMS == 'MONTH') :
+            hintsSMS = {
+                1: "Search with first three letters/ full Name",
+                2: "Search with Numeric Number with Months"
+            }
         try :
             while(1) :
                 (findState,findStateArea) = ('','')
-                searchState = input('\n\nsearching State: ').upper()
+                searchState = input(sms1).upper()
                 findState = self.searchingFromJSON(statesData,searchState)
                 if(findState) :
                     print(findState)
                     if(str(type(findState)) == "<class 'dict'>") :
-                        searchStateArea = input('searching State\'s Area: ').upper()
+                        searchStateArea = input(sms2).upper()
                         findStateArea = self.searchingFromJSON(statesData,searchState,searchStateArea)
                         if(findStateArea) :
                             print(findStateArea)
                 if(findState==None or findStateArea==None) :
-                    sms = {
-                        "Searching Hints":{
-                            1: "Search with first 3 letters of a State/Union Territory (if not get search with first 4 letters)",
-                            2: "Search with short name of each state; a.e. 'West Bengal' : 'WB'"
-                        }
-                    }
-                    print(sms)
+                    print(hintsSMS)
                 else :
                     if(findStateArea) :
                         return findStateArea

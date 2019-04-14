@@ -1,6 +1,5 @@
 {
     "rainfallDataPath" : "data/RainFallData.xlsx",
-    "allStatesNamePath" : "src/config/indianStates.json",
     "loggerPath" : "data/logger/log.log",
     
     "mongoDB" : {
