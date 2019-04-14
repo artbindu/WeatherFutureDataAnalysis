@@ -1,0 +1,16 @@
+{
+    "rainfallDataPath" : "data/RainFallData.xlsx",
+    "allStatesNamePath" : "src/config/indianStates.json",
+    "loggerPath" : "data/logger/log.log",
+    
+    "mongoDB" : {
+        "url" : "localhost:27017",
+        "dbName1" : "JUProject2019",
+        "dbName" : "WeatherDataAnalysis",
+        "collectionName" : {
+            "rainfall": "RainFallData"
+        }
+    },
+
+    "annLength" : 5
+}
