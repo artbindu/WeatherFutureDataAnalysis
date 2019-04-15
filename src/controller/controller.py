@@ -1,5 +1,5 @@
 # part 00
-import src.config.config as config
+import src.config as config
 # part 01
 import src.excel.xlsxInput as xlsx
 import src.grouping.groupingData as groupingData
@@ -129,7 +129,7 @@ def analysisData() :
             if(len(pData0)>0) :
                 pDataAll.append(pData0)
                 statusAll.append("Original Data")
-            print('\n\n\\n\n\n\n\n\n\n\nClient Query: ',cQuery)
+            print('\n\n\n\n\n\n\n\n\n\nClient Query: ',cQuery)
             if(len(cQuery)==2) :
                 sms = graphControllerExpectData(pDataAll,'searchByRegionYear',statusAll)
             if(len(cQuery)==3) :
@@ -155,6 +155,7 @@ def graphControllerExpectData(pData,queryType,status=None) :
     # going for graph ploting
     sms = plotGraphExpectData.__main__(pData,queryType,status)
     return sms
+
 ## use to clear arrayList data after it use
 def clearArrayData(arrArrData) :
     retArrData = []

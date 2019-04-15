@@ -83,3 +83,4 @@ def month_string_to_number(name):
         'DECEMBER':'11',
     }
     return(int(monthName[str(name)]))
+    

@@ -1,0 +1,57 @@
+{
+    "JANUARY" : "JANUARY",
+    "JAN" : "JANUARY",
+    "01" : "JANUARY",
+    "1" : "JANUARY",
+
+    "FEB" : "FEBRUARY",
+    "FEBRUARY": "FEBRUARY",
+    "02" : "FEBRUARY",
+    "2" : "FEBRUARY",
+
+    "MAR" : "MARCH",
+    "MARCH" : "MARCH",
+    "03" : "MARCH",
+    "3" : "MARCH",
+
+    "APRIL" : "APRIL",
+    "APR" : "APRIL",
+    "04" : "APRIL",
+    "4" : "APRIL",
+    
+    "MAY" : "MAY",
+    "05" : "MAY",
+    "5" : "MAY",
+    
+    "JUNE" : "JUNE",
+    "JUN" : "JUNE",
+    "06" : "JUNE",
+    "6" : "JUNE",
+    
+    "JUL" : "JULY",
+    "JULY" : "JULY",
+    "07" : "JULY",
+    "7" : "JULY",
+    
+    "AUG" : "AUGUST",
+    "AUGUST" : "AUGUST",
+    "08" : "AUGUST",
+    "8" : "AUGUST",
+    
+    "SEP" : "SEPTEMBER",
+    "SEPTEMBER" : "SEPTEMBER",
+    "09" : "SEPTEMBER",
+    "9" : "SEPTEMBER",
+    
+    "OCT" : "OCTOBER",
+    "OCTOBER" : "OCTOBER",
+    "10" : "OCTOBER",
+    
+    "NOV" : "NOVEMBER",
+    "NOVEMBER" : "NOVEMBER",
+    "11" : "NOVEMBER",
+
+    "DEC" : "DECEMBER",
+    "DECEMBER" : "DECEMBER",
+    "12" : "DECEMBER"
+}
