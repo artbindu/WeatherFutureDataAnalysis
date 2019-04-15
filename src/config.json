@@ -1,7 +1,7 @@
 {
     "rainfallDataPath" : "data/RainFallData.xlsx",
-    "loggerPath" : "data/logger/log.log",
-    
+    "loggerPath" : "logger/logger.log",
+
     "mongoDB" : {
         "url" : "localhost:27017",
         "dbName1" : "JUProject2019",

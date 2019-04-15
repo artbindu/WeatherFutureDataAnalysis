@@ -1,8 +1,8 @@
 # @python Data Analytics Programming
-import src.config.config as config
+import src.config as config
 import src.controller.controller as controller
+# @generate logger file
 
-# ------------Rainfall--Data--Analysis------------------------
 
 try :
     (choice, sms) = ('1', None)

@@ -2,7 +2,7 @@ import json
 # for json static data
 # searchItems : array[]
 def jsonData(searchItems) :
-    jsonConfig = json.load(open("src\config\config.json"))
+    jsonConfig = json.load(open("src/config.json"))
     # print(len(jsonConfig))
     try :
         data = jsonConfig
