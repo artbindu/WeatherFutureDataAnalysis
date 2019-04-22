@@ -5,9 +5,9 @@ class Utils(object) :
     # searchItems : array[]
     @staticmethod
     def jsonData(searchItems) :
-        jsonConfig = json.load(open("src/share/config.json"))
-        # print(len(jsonConfig))
         try :
+            jsonConfig = json.load(open("src/share/config.json"))
+            # print(len(jsonConfig))
             data = jsonConfig
             for sItem in searchItems :
                 data = data.get(sItem)
