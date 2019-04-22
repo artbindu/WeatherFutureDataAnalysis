@@ -4,12 +4,12 @@
 import json
 from pprint import pprint
 
-import src.config as mainConfig
+import src.share.utils.utils as utils
 
 class ClientQuery :
     def __init__(self) :
-        self.stateJFile = mainConfig.jsonData(["expectData","clientQuery","searchingStates"])
-        self.monthJFile = mainConfig.jsonData(["expectData","clientQuery","searchingMonths"])
+        self.stateJFile = utils.Utils.jsonData(["expectData","clientQuery","searchingStates"])
+        self.monthJFile = utils.Utils.jsonData(["expectData","clientQuery","searchingMonths"])
         print(self.stateJFile, self.monthJFile)
         self.cQuery = self.clientQuery()
         # print(self.cQuery)

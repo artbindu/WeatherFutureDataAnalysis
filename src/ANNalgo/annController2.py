@@ -9,7 +9,7 @@
 import src.ANNalgo.processingANNdata2 as dataProcessing2
 
 import src.ANNalgo.ann as algoANN
-import src.ANNalgo.config as config
+import src.share.utils.utils as utils
 
 ##
 #
@@ -19,15 +19,15 @@ def __main__(cQuery, mData) :
     for x in mData :
         print('\n',x)
     (annInput,annOutpu,annQInput,annQOutput,lenANN) = (None,None,None,None,5)
-    (lastYr,lastMonth) = config.findEndYearEndMonth(mData)
-    (expectQuery,lastMonth) = (None,config.month_string_to_number(lastMonth))
+    (lastYr,lastMonth) = utils.Utils.findEndYearEndMonth(mData)
+    (expectQuery,lastMonth) = (None,utils.Utils.month_string_to_number(lastMonth))
     print('LASTyEAR:     ',lastYr)
     while(1) :
         # function to generate newQuery for ANN-II
         lastMonth += 1
         if(lastMonth%12 == 0) :
             lastYr += 1
-        expectQuery = [cQuery[0],lastYr,config.month_number_to_string(lastMonth)]
+        expectQuery = [cQuery[0],lastYr,utils.Utils.month_number_to_string(lastMonth)]
         print('expectQuery: ', expectQuery)
         # ----------------------------------
         # calling ANN-II
@@ -50,8 +50,8 @@ def __main__(cQuery, mData) :
         # ---- insert expect data last part of mainData ---------
         print('result query: ',expectQuery)
         print(expectQuery[2])
-        print(config.month_string_to_number(expectQuery[2]))
-        if(config.month_string_to_number(expectQuery[2])%12 == 0) :
+        print(utils.Utils.month_string_to_number(expectQuery[2]))
+        if(utils.Utils.month_string_to_number(expectQuery[2])%12 == 0) :
             tempArr = []
             tempArr.append(expectQuery)
             mData.append(tempArr)

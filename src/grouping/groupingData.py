@@ -1,3 +1,5 @@
+import src.share.utils.utils as utils
+
 ##
 # @meta class : containing 4 types of data
 ##
@@ -38,26 +40,16 @@ class GroupingData :
                     continue
                 count += 1
                 # create Object of 'DastSheet' class
-                region =  self.int_or_float_or_str(self.dataList[i][0])
-                year = self.int_or_float_or_str(self.dataList[i][1])
-                month = self.int_or_float_or_str(self.dataList[0][j])
-                data = self.int_or_float_or_str(self.dataList[i][j])
+                region =  utils.Utils.int_or_float_or_str(self.dataList[i][0])
+                year = utils.Utils.int_or_float_or_str(self.dataList[i][1])
+                month = utils.Utils.int_or_float_or_str(self.dataList[0][j])
+                data = utils.Utils.int_or_float_or_str(self.dataList[i][j])
 
                 # creating object of meta class 'DataSheet'
                 obj = DataSheet(region, year, month, data)
                 arrayList.append(obj)
         # print('complete: grouping data for insert data in database in proper format')
         return arrayList
-    # method to return actual data type
-    def int_or_float_or_str(self,s):
-        s = str(s)
-        try:
-            try:
-                return int(s)
-            except ValueError:
-                return float(s)
-        except ValueError:
-            return s
 
 ##
 # @main function: calling from controller

@@ -1,5 +1,6 @@
 import src.expect.clientQuery as clientQuery
-import src.expect.config as config
+import src.share.utils.expectUtils as expectUtils
+import src.share.utils.utils as utils
 
 class ExpectingQuery :
     def __init__(self) :
@@ -37,17 +38,17 @@ class ExpectingQuery :
         query = None
         if(self.cQuery[1]<2018) :
             if(len(self.cQuery)==2) :
-                return config.createMongoQuery_ForOriginalData(self.cQuery[0],self.cQuery[1])
+                return expectUtils.ExpectUtils.createMongoQuery_ForOriginalData(self.cQuery[0],self.cQuery[1])
             elif(len(self.cQuery)==3) :
-                return config.createMongoQuery_ForOriginalData(self.cQuery[0],self.cQuery[1],self.cQuery[2])
+                return expectUtils.ExpectUtils.createMongoQuery_ForOriginalData(self.cQuery[0],self.cQuery[1],self.cQuery[2])
         elif(len(self.cQuery)==3 and self.cQuery[1]>=2018) :
-            return config.createMongoQuery_ForOriginalData(self.cQuery[0],2017,self.cQuery[2])
+            return expectUtils.ExpectUtils.createMongoQuery_ForOriginalData(self.cQuery[0],2017,self.cQuery[2])
         return query
 
 
     # -------generate MongoQuery with first ANN approach-------
     def generateMongoQuery_Approch1(self)    :
-        (qType, mQuery) = (config.queryType(self.cQuery), [])
+        (qType, mQuery) = (expectUtils.ExpectUtils.queryType(self.cQuery), [])
         
         # [ 'region', year, 'month'] = ['BIHAR', 2018, 'MARCH'] :: search all year Region-Month
         if(qType == "<class 'str'><class 'int'><class 'str'>") : 
@@ -56,7 +57,7 @@ class ExpectingQuery :
         # [ 'region', year] = ['BIHAR', 2018]  ::  search by Region, Year(with all Month)
         elif(qType == "<class 'str'><class 'int'>") :
             for i in range(0, 12) :
-                arr = [self.cQuery[0],self.cQuery[1],config.month_number_to_string(i)]
+                arr = [self.cQuery[0],self.cQuery[1],utils.Utils.month_number_to_string(i)]
                 mQuery.append(self.generateQuery1(arr))
             return(mQuery)
         # for other query
@@ -64,7 +65,7 @@ class ExpectingQuery :
             print('----invalid query----')
             return None
     def generateQuery1(self, arr) :
-        return config.createMongoQueryANN1(arr[0],arr[1],arr[2])
+        return expectUtils.ExpectUtils.createMongoQueryANN1(arr[0],arr[1],arr[2])
 
     # -------generate MongoQuery with second ANN approch-------
     # -------here we picup all data from database-------------
@@ -97,8 +98,8 @@ class ExpectingQuery :
             # ---for last Year-----
             if(isQueryForLastPart) :
                 months = []
-                for i in range(0,config.month_string_to_number(fMonth)) :
-                    months.append(config.month_number_to_string(i))
+                for i in range(0,utils.Utils.month_string_to_number(fMonth)) :
+                    months.append(utils.Utils.month_number_to_string(i))
                 arr = [self.cQuery[0], fYear, months ]
                 mQuery.append(self.generateQuery2(arr))
             return mQuery
@@ -107,9 +108,9 @@ class ExpectingQuery :
     # generate Query for approach: ANN-2
     def generateQuery2(self, arr) :
         if(len(arr) == 2)   :
-            return config.createMongoQueryANN2(arr[0],arr[1])
+            return expectUtils.ExpectUtils.createMongoQueryANN2(arr[0],arr[1])
         elif(len(arr)==3) :
-            return config.createMongoQueryANN2(arr[0],arr[1],arr[2])
+            return expectUtils.ExpectUtils.createMongoQueryANN2(arr[0],arr[1],arr[2])
 
 ##
 # getmQuery0 : if(yr<2018 & len(cQuery)=2) => Original Data

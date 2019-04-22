@@ -1,6 +1,7 @@
 {
-    "rainfallDataPath" : "data/RainFallData.xlsx",
-    "loggerPath" : "logger/logger.log",
+    "rawData" : {
+        "rainfall" : "data/RainFallData.xlsx"
+    },
 
     "mongoDB" : {
         "url" : "localhost:27017",
@@ -13,8 +14,8 @@
 
     "expectData" : {
         "clientQuery" :{
-            "searchingStates" : "src/expect/indianStates.json",
-            "searchingMonths" : "src/expect/months.json"
+            "searchingStates" : "src/share/indianStates.json",
+            "searchingMonths" : "src/share/months.json"
         }
     },
 

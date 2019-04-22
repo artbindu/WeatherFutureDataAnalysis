@@ -1,4 +1,4 @@
-import src.ANNalgo.config as config
+import src.share.utils.utils as utils
 
 class ProcessOnlyData_of_ANN2 :
     def __del__(self) :
@@ -53,7 +53,7 @@ class ProcessOnlyData_of_ANN2 :
                     ckFirst = 1
                 else:
                     self.annInput.append(filterIData)                    
-                    filterOData.append(arrData[k-1][config.month_string_to_number(cQuery[2])][3])
+                    filterOData.append(arrData[k-1][utils.Utils.month_string_to_number(cQuery[2])][3])
                     self.maxData = self.maxValue(filterOData)
                     self.annOutput.append(filterOData)
 

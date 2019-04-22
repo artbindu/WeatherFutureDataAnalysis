@@ -1,5 +1,5 @@
 # part 00
-import src.config as config
+import src.share.utils.utils as utils
 # part 01
 import src.excel.xlsxInput as xlsx
 import src.grouping.groupingData as groupingData
@@ -13,21 +13,21 @@ import src.graph.plotGraphController as plotGraphExpectData
 
 ## 
 # @method: transfer data from Excel --to--> mongoDB
-# @path: string: excel file path
+# @dataPath: string: excel file path
 ##
-def postData(path)   :
+def postData(dataPath,dbConfig,dbName)   :
     (xlsxData, sheetData, sms, mPath) =(None, None, None, 'src/controller.postData()')
 
     try :   
         # @method: take input from '.xlsx' i.e. excel format
-        if(path) :
-            xlsxData = xlsx.__main__(config.jsonData([path]))
+        if(dataPath) :
+            xlsxData = xlsx.__main__(dataPath)
         # @method : for creating a small sheet;  like:< RegionName--Year--Month--DataValue >
         if(xlsxData) :
             sheetData = groupingData.__main__(xlsxData)
         # @method: send data to mongoDB
         if(sheetData) :
-            sms = mongoDB.__main__(config.jsonData(["mongoDB"]),'POST', sheetData)
+            sms = mongoDB.__main__(dbConfig,dbName,'POST', sheetData)
             if(sms) :
                 return(sms)
     except AttributeError:
@@ -41,10 +41,10 @@ def postData(path)   :
 ##
 # @method: full clear mongo database
 ##
-def deleteData()    :
+def deleteData(dbConfig,dbName)    :
     (query, Data, sms, mPath) =(None, None, None, 'src/controller.deleteData()')
     try :   # @method: delete all data in mongodb
-        sms = mongoDB.__main__(config.jsonData(["mongoDB"]),'DELETE')
+        sms = mongoDB.__main__(dbConfig,dbName,'DELETE')
         if(sms) :
             print('cont: ', sms)
             return sms
@@ -62,7 +62,7 @@ def deleteData()    :
 #           (ii) expect a month data from its previous 5 months
 # @calling from 'main.py'
 ##
-def analysisData() :
+def analysisData(dbConfig,dbName) :
     (mData1,mData2,pData0,pData1,pData2) = ([],[],[],[],[])
     (pDataAll,statusAll) = ([],[])
     mPath = 'src/controller.analysisData()'
@@ -79,7 +79,7 @@ def analysisData() :
             ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             # ~~~~~~~~~~~~~~~~find DB Data Original if year<2018~~~~~~~~~~~~~
             if(mQuery0) :
-                (mongoData, sms) = mongoDB.__main__(config.jsonData(["mongoDB"]),'GET', mQuery0)
+                (mongoData, sms) = mongoDB.__main__(dbConfig,dbName,'GET', mQuery0)
                 if(sms) :
                     pData0 = mongoData
                     # input(pData0)
@@ -87,7 +87,7 @@ def analysisData() :
             # ~~~~~~~~~~~~~~~~~~~~~~~~~~Part-01~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             # ~~~~~~~~~~~~fetch data from MongoDB ANN2--approach1~~~~~~~~~~~~
             for i in range(0, len(mQuery1)) :
-                (mongoData, sms) = mongoDB.__main__(config.jsonData(["mongoDB"]),'GET', mQuery1[i])
+                (mongoData, sms) = mongoDB.__main__(dbConfig,dbName,'GET', mQuery1[i])
                 if(sms) :
                     mData1.append(mongoData)
                     # print(mData1)
@@ -108,7 +108,7 @@ def analysisData() :
             # ~~~~~~~~~~~~~~~~~~~~~~~~~~~Part-02~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             # ~~~~~~~fetch data from MongoDB ANN2-approach2(Backword)~~~~~~~~
             for i in range(0, len(mQuery2)) :
-                (mongoData, sms) = mongoDB.__main__(config.jsonData(["mongoDB"]),'GET', mQuery2[i])
+                (mongoData, sms) = mongoDB.__main__(dbConfig,dbName,'GET', mQuery2[i])
                 if(sms) :
                     del mongoData[0]
                     mData2.append(mongoData)

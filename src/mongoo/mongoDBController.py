@@ -6,10 +6,10 @@
 import lib.pymongo.__init__ as pymongo
 
 class MongoConnection :
-    def __init__(self,connectOption) :
+    def __init__(self,connectOption,collectionOriginalName) :
         self.url = connectOption.get("url")
         self.dbName = connectOption.get("dbName1")
-        self.collectionName = connectOption.get("collectionName").get("rainfall")
+        self.collectionName = connectOption.get("collectionName").get(collectionOriginalName)
         (self.connection, self.collection) = (None, None)
     def __del__(self) :
         (self.url, self.dbName, self.collectionName) = (None,None,None)
@@ -39,7 +39,7 @@ class MongoConnection :
 @
 @
 '''
-import src.mongoo.config as config
+import src.share.utils.dbUtils as dbUtils
 
 class MongoRequest   :
     # @constructor
@@ -64,7 +64,7 @@ class MongoRequest   :
             print('....data insert/update start....')
             for i in range(0, length)  :
                 # print(("rainfall"+str(i)), sheetData[i].region.upper(), sheetData[i].year, sheetData[i].month.upper(), sheetData[i].data)           
-                (fQuery,uQuery,iQuery) = config.postQuery(("rainfall"+str(i)), sheetData[i].region.upper(), sheetData[i].year, sheetData[i].month.upper(), sheetData[i].data)
+                (fQuery,uQuery,iQuery) = dbUtils.MongoDBUtils.postQuery(("rainfall"+str(i)), sheetData[i].region.upper(), sheetData[i].year, sheetData[i].month.upper(), sheetData[i].data)
                 # print(fQuery,'\n',uQuery,'\n',iQuery)
 
                 record = self.mongoCollection.find_one(fQuery)
@@ -87,7 +87,7 @@ class MongoRequest   :
     # @method: fetch data from mongodb
     ##
     def deleteData(self)    :
-        mongoQuery = config.deleteQuery()
+        mongoQuery = dbUtils.MongoDBUtils.deleteQuery()
         self.data = self.mongoCollection.remove()
         # print(self.data)
         if(self.data['ok'] == 1.0 and self.data['n'] > 0) :
@@ -134,10 +134,10 @@ class MongoRequest   :
 @
 @
 """
-def __main__(connectOption,requestType, dataQuery=None) :
+def __main__(connectOption,collectionName,requestType, dataQuery=None) :
     mPath = 'src/mongoo/mongoDBController.py'
     try :
-        db = MongoConnection(connectOption)
+        db = MongoConnection(connectOption,collectionName)
         # establishded connection
         db.start()
 

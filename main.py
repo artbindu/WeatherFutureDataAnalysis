@@ -1,35 +1,28 @@
 # @python Data Analytics Programming
-import src.config as config
+import src.share.utils.utils as utils
 import src.controller.controller as controller
-# @generate logger file
-import lib.logging as logging
-
 # ------------Rainfall--Data--Analysis------------------------
-LOG_FILENAME = 'logger/logger.log'
-logging.basicConfig(filename=LOG_FILENAME,level=logging.DEBUG)
-
-logging.debug('This is a debug message')
-logging.info('This is an info message')
-logging.warning('This is a warning message')
-logging.error('This is an error message')
-logging.critical('This is a critical message')
 
 try :
     (choice, sms) = ('1', None)
     while (choice != '0') :
-        choice = config.menuDriven('Your choice:\t')
+        choice = utils.Utils.menuDriven('Your choice:\t')
         if(choice == '0')   :
             print('\n\n----------Thank You Visit Again')
 
         elif(choice == '1')   :  # insert data from excel and store it mongoDb
-            sms = controller.postData("rainfallDataPath")
+            dataPath = utils.Utils.jsonData(["rawData","rainfall"])
+            dbConfig = utils.Utils.jsonData(["mongoDB"])
+            sms = controller.postData(dataPath,dbConfig,"rainfall")
 
         elif(choice =='2') :
-            sms = controller.deleteData()
+            dbConfig = utils.Utils.jsonData(["mongoDB"])
+            sms = controller.deleteData(dbConfig,"rainfall")
             print('main', sms)
         
         elif(choice=='3') :
-            sms = controller.analysisData()
+            dbConfig = utils.Utils.jsonData(["mongoDB"])
+            sms = controller.analysisData(dbConfig,"rainfall")
         
         else :
             sms = 'invalid entry'

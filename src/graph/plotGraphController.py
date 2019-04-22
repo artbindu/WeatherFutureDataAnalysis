@@ -2,7 +2,8 @@
 import matplotlib.pyplot as plt
 import numpy as np  # using numpy
 
-import src.graph.config as config
+import src.graph.dataProcess as plotUtils
+import src.share.utils.utils as utils
 
 ##
 # @draw graph according to different searching type
@@ -24,8 +25,8 @@ class PlotGraph :
     #def whenTakeSingleInput(self, title, xdata1,xdata2, ydata, tSMS, xSMS1,xSMS2, ySMS) :
     #                   Region, Month, Year, Data,    r,   m,   y,    d
     def plotGraph(self, region, month, year, data, rsms, ysms, msms, dsms) :
-        self.sms = rsms+" :: "+str(config.int_or_float_or_str(region[1][0]))
-        self.sms += "\n"+ysms+" ::"+str(config.int_or_float_or_str(month[1][0]))
+        self.sms = rsms+" :: "+str(utils.Utils.int_or_float_or_str(region[1][0]))
+        self.sms += "\n"+ysms+" ::"+str(utils.Utils.int_or_float_or_str(month[1][0]))
         for i in range(0, len(data))   :
             plt.plot(year[i],data[i], label=data[i])
             plt.plot(year[i],data[i],'ro')
@@ -43,12 +44,12 @@ def __main__(arrayData, queryType,status=None) :
     # region,year,month,data :: 1-dim array
     # r,y,m,d :: correspoinding header files
     for i in range(0, len(arrayData)) :
-        (region,year,month,data, r,y,m,d) = config.processDataForPloting(arrayData[i])
+        (region,year,month,data, r,y,m,d) = plotUtils.dataProcessing.processDataForPloting(arrayData[i])
         Region.append(region)
         Year.append(year)
         Month.append(month)
         Data.append(data)
-        (color,sms) = config.checkColor(i)
+        (color,sms) = plotUtils.dataProcessing.checkColor(i)
         print('\n\ncolor= ',color,'\tStatus= ',sms,'\n Data: ',year,data)
 
     ob = PlotGraph()  #create object
