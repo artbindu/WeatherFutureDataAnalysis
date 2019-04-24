@@ -10,19 +10,20 @@ try :
         if(choice == '0')   :
             print('\n\n----------Thank You Visit Again')
 
-        elif(choice == '1')   :  # insert data from excel and store it mongoDb
-            dataPath = utils.Utils.jsonData(["rawData","rainfall"])
-            dbConfig = utils.Utils.jsonData(["mongoDB"])
-            sms = controller.postData(dataPath,dbConfig,"rainfall")
+        # elif(choice == '1')   :  # insert data from excel and store it mongoDb
+        #     dataPath = utils.Utils.jsonData(["rawData","rainfall"])
+        #     dbConfig = utils.Utils.jsonData(["mongoDB"])
+        #     sms = controller.postData(dataPath,dbConfig,"rainfall")
 
-        elif(choice =='2') :
-            dbConfig = utils.Utils.jsonData(["mongoDB"])
-            sms = controller.deleteData(dbConfig,"rainfall")
-            print('main', sms)
+        # elif(choice =='2') :
+        #     dbConfig = utils.Utils.jsonData(["mongoDB"])
+        #     sms = controller.deleteData(dbConfig,"rainfall")
+        #     print('main', sms)
         
         elif(choice=='3') :
+            ob = controller.Controller()
             dbConfig = utils.Utils.jsonData(["mongoDB"])
-            sms = controller.analysisData(dbConfig,"rainfall")
+            sms = ob.analysisData(dbConfig,"rainfall")
         
         else :
             sms = 'invalid entry'
