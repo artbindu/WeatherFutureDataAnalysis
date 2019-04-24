@@ -6,14 +6,14 @@ import lib.xlrd.__init__ as xlrd
 ##
 class ExcelInput :
     (path, sheet, data) = (None, None, None)
-    # @constructor
+    # @constructors
     # @path: string
     def __init__(self, path)    :
         self.path = path
         self.sheet = self.excelInput()
         # @return to controller
         self.data = self.prossingData()
-    # @destructor
+    # @destructors
     def __del__(self) :
         (self.path, self.sheet, self.data) = (None, None, None)
     ##

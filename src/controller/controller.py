@@ -4,6 +4,7 @@ import src.share.utils.utils as utils
 import src.excel.xlsxInput as xlsx
 import src.grouping.groupingData as groupingData
 import src.mongoo.mongoDBController as mongoDB
+import src.mongoo.dbConnection as dbConnect
 # part 03
 import src.expect.expectingQuery as expectingQuery
 import src.ANNalgo.annController1 as ANN1
@@ -11,11 +12,21 @@ import src.ANNalgo.annController2 as ANN2
 import src.graph.plotGraphController as plotGraphExpectData
 
 class Controller :
+    db = None
+    # @constructors
+    def __init__(self,dbConfig,dbName) :
+        # print('with in constructor: ',dbConfig,dbName)
+        self.db = dbConnect.MongoConnection(dbConfig,dbName)
+        self.db.start()
+        # print(self.db.collection)
+    # @destructors
+    def __del__(self) :
+        self.db.end()
     ## 
     # @method: transfer data from Excel --to--> mongoDB
     # @dataPath: string: excel file path
     ##
-    def postData(self,dataPath,dbConfig,dbName)   :
+    def postData(self,dataPath)   :
         (xlsxData, sheetData, sms, mPath) =(None, None, None, 'src/controller.postData()')
 
         try :   
@@ -27,7 +38,7 @@ class Controller :
                 sheetData = groupingData.__main__(xlsxData)
             # @method: send data to mongoDB
             if(sheetData) :
-                sms = mongoDB.__main__(dbConfig,dbName,'POST', sheetData)
+                sms = mongoDB.__main__(self.db.collection,'POST', sheetData)
                 if(sms) :
                     return(sms)
         except AttributeError:
@@ -41,10 +52,10 @@ class Controller :
     ##
     # @method: full clear mongo database
     ##
-    def deleteData(self,dbConfig,dbName)    :
+    def deleteData(self)    :
         (query, Data, sms, mPath) =(None, None, None, 'src/controller.deleteData()')
         try :   # @method: delete all data in mongodb
-            sms = mongoDB.__main__(dbConfig,dbName,'DELETE')
+            sms = mongoDB.__main__(self.db.collection,'DELETE')
             if(sms) :
                 print('cont: ', sms)
                 return sms
@@ -60,9 +71,8 @@ class Controller :
     # @method: expect future data :: using ANN both approach
     #           (i) expect form same month of different year
     #           (ii) expect a month data from its previous 5 months
-    # @calling from 'main.py'
     ##
-    def analysisData(self,dbConfig,dbName) :
+    def analysisData(self) :
         (mData1,mData2,pData0,pData1,pData2) = ([],[],[],[],[])
         (pDataAll,statusAll) = ([],[])
         mPath = 'src/controller.analysisData()'
@@ -79,7 +89,7 @@ class Controller :
                 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 # ~~~~~~~~~~~~~~~~find DB Data Original if year<2018~~~~~~~~~~~~~
                 if(mQuery0) :
-                    (mongoData, sms) = mongoDB.__main__(dbConfig,dbName,'GET', mQuery0)
+                    (mongoData, sms) = mongoDB.__main__(self.db.collection,'GET', mQuery0)
                     if(sms) :
                         pData0 = mongoData
                         # input(pData0)
@@ -87,7 +97,7 @@ class Controller :
                 # ~~~~~~~~~~~~~~~~~~~~~~~~~~Part-01~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 # ~~~~~~~~~~~~fetch data from MongoDB ANN2--approach1~~~~~~~~~~~~
                 for i in range(0, len(mQuery1)) :
-                    (mongoData, sms) = mongoDB.__main__(dbConfig,dbName,'GET', mQuery1[i])
+                    (mongoData, sms) = mongoDB.__main__(self.db.collection,'GET', mQuery1[i])
                     if(sms) :
                         mData1.append(mongoData)
                         # print(mData1)
@@ -108,7 +118,7 @@ class Controller :
                 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~Part-02~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 # ~~~~~~~fetch data from MongoDB ANN2-approach2(Backword)~~~~~~~~
                 for i in range(0, len(mQuery2)) :
-                    (mongoData, sms) = mongoDB.__main__(dbConfig,dbName,'GET', mQuery2[i])
+                    (mongoData, sms) = mongoDB.__main__(self.db.collection,'GET', mQuery2[i])
                     if(sms) :
                         del mongoData[0]
                         mData2.append(mongoData)

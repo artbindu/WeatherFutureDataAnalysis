@@ -18,7 +18,7 @@ class Utils(object) :
     # menu drive for main.py
     @staticmethod
     def menuDriven(choice)    :
-        print("\n\n----------------------------------------\n")
+        print("\n\n")
         print("\n0. Exit")
         print("\n1. POST Data from Excel Format to MongoDB")
         print("\n2. DELETE Data")
