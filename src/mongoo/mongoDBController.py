@@ -11,11 +11,9 @@ class MongoRequest   :
         # print('\n\n\ncollection: ', self.mongoCollection)
         self.data = None
         self.sms = None
-
     # @destructor
     def __del__(self) :
-        (self.mongoCollection, self.data, self.sms) = (None, None, None)
-        
+        (self.mongoCollection, self.data, self.sms) = (None, None, None) 
     ##
     # @method: store data in mongodb
     # @return 
@@ -65,10 +63,11 @@ class MongoRequest   :
     # @return mongoQuery data in array format [[region,year,month,data],[],[],...]
     ##
     def getData(self, mongoQuery)   :
-        self.data = self.mongoCollection.find(mongoQuery)
+        (self.data,self.sms) = (None,None)
+        self.data = self.mongoCollection.find(mongoQuery)        
         count = self.data.count()
         if(count==0) :
-            self.data = None
+            (self.data,self.sms) = (None,None)
         else :
             arrData = self.convertJson2Array()
             (self.data, self.sms) = (arrData, "get data successfully")
@@ -91,27 +90,3 @@ class MongoRequest   :
             return array
         else :
             return None
-
-            
-
-"""
-@ Main function : for controlling mongoDBController
-"""
-def __main__(mongoCollection,requestType, dataQuery=None) :
-    mPath = 'src/mongoo/mongoDBController.py'
-    try :
-        ob = MongoRequest(mongoCollection)
-        if(requestType == "POST")   :
-            ob.postData(dataQuery)
-            return ob.sms
-        elif(requestType == "DELETE")   :
-            ob.deleteData()
-            return ob.sms
-        elif(requestType == "GET") :
-            ob.getData(dataQuery)
-            return (ob.data, ob.sms)
-        else :
-            return 'method not define : '+mPath
-    except AttributeError:
-        print('AttributeError : '+mPath)
-

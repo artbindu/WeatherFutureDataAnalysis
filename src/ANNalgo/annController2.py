@@ -7,7 +7,6 @@
     @mData ::: searching Month and its next 5 Month Data; ANN Approach-II (write New Code: 'ANNalgo/processingData2.py')
 '''
 import src.ANNalgo.processingANNdata2 as dataProcessing2
-
 import src.ANNalgo.ann as algoANN
 import src.share.utils.utils as utils
 
@@ -18,7 +17,7 @@ def __main__(cQuery, mData) :
     print('i am with in ann controller2')
     for x in mData :
         print('\n',x)
-    (annInput,annOutpu,annQInput,annQOutput,lenANN) = (None,None,None,None,5)
+    (annInput,annOutput,annQInput,annQOutput,lenANN) = (None,None,None,None,utils.Utils.jsonData(['annLength']))
     (lastYr,lastMonth) = utils.Utils.findEndYearEndMonth(mData)
     (expectQuery,lastMonth) = (None,utils.Utils.month_string_to_number(lastMonth))
     print('LASTyEAR:     ',lastYr)
@@ -32,17 +31,12 @@ def __main__(cQuery, mData) :
         # ----------------------------------
         # calling ANN-II
         # analysis data (of all DATABASE data) && create ANN-I/O data
-        (annInput,annOutput,annQueryInput, annMaxData) = dataProcessing2.__main__(expectQuery,mData,lenANN)
-        '''
-        print('\n\n\n\n  annInput:\t\t\tOutput')
-        for i in range(0,len(annInput)) :
-            print(annInput[i],'  ::  ',annOutput[i])
-        print('\n\nannQInput: ',annQueryInput)
-        print(' Maximum Data: ',annMaxData)
-        '''
+        ob2 = dataProcessing2.ProcessOnlyData_of_ANN2(expectQuery,mData,lenANN)
+        (annInput,annOutput,annQueryInput, annMaxData) = (ob2.annInput,ob2.annOutput,ob2.annQInput,ob2.maxData)
         # -------------------------------------
         #---------ann algo calling-------------
-        annQueryOutput = algoANN.__main__(annInput,annOutput,annMaxData, annQueryInput)
+        obANN = algoANN.ANN_Algo(annInput,annOutput,annMaxData, annQueryInput)
+        annQueryOutput = obANN.qOutput
         result = round(annQueryOutput[0][0], 2)
         print('result: ', result)
         expectQuery.append(result)

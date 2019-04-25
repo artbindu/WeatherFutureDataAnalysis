@@ -4,23 +4,24 @@ import src.share.utils.utils as utils
 
 class ExpectingQuery :
     def __init__(self) :
-        (self.cQuery, self.mQueryApproch0, self.mQueryApproch1, self.mQueryApproch2) = (None, None, None, None)
+        (self.cQuery, self.mQuery0, self.mQuery1, self.mQuery2) = (None, None, None, None)
         # generate cQuery througth constructor
         try :
-            self.cQuery = clientQuery.__main__()
+            ob = clientQuery.ClientQuery()
+            self.cQuery = ob.cQuery
             # print('\n\n\n self.cQuery = ',self.cQuery)
 
-            # generate 'mQueryApproch0' through constructor
-            self.mQueryApproch0 = self.generateMongoQuery_OriginalData()
-            # print('\n\n\n self.mQueryApproch0 = ',self.mQueryApproch0)
+            # generate 'mQuery0' through constructor
+            self.mQuery0 = self.generateMongoQuery_OriginalData()
+            # print('\n\n\n self.mQuery0 = ',self.mQuery0)
             
-            # generate 'mQueryApproch1' through constructor
-            self.mQueryApproch1 = self.generateMongoQuery_Approch1()
-            # print('\n\n\n self.mQueryApproch1 = ',self.mQueryApproch1)
+            # generate 'mQuery1' through constructor
+            self.mQuery1 = self.generateMongoQuery_Approch1()
+            # print('\n\n\n self.mQuery1 = ',self.mQuery1)
 
-            # generate 'mQueryApproch2_Backword' through constructor :: all db data(1951-2018)
-            self.mQueryApproch2 = self.generateMongoQuery_Approch2('backword')
-            # print('\n\n\n self.mQueryApproch2 = ',self.mQueryApproch2)
+            # generate 'mQuery2_Backword' through constructor :: all db data(1951-2018)
+            self.mQuery2 = self.generateMongoQuery_Approch2('backword')
+            # print('\n\n\n self.mQuery2 = ',self.mQuery2)
             
             print("\n\n*********************\n\n")
         except AttributeError :
@@ -31,7 +32,7 @@ class ExpectingQuery :
             print('error class ExpectingQuery().__init__()')
 
     def __del__(self) :
-        (self.cQuery, self.mQueryApproch0, self.mQueryApproch1, self.mQueryApproch2) = (None, None, None, None)
+        (self.cQuery, self.mQuery0, self.mQuery1, self.mQuery2) = (None, None, None, None)
        
     # -------generate mongoQuery if year<2018 -----------------
     def generateMongoQuery_OriginalData(self) :
@@ -44,7 +45,6 @@ class ExpectingQuery :
         elif(len(self.cQuery)==3 and self.cQuery[1]>=2018) :
             return expectUtils.ExpectUtils.createMongoQuery_ForOriginalData(self.cQuery[0],2017,self.cQuery[2])
         return query
-
 
     # -------generate MongoQuery with first ANN approach-------
     def generateMongoQuery_Approch1(self)    :
@@ -111,22 +111,3 @@ class ExpectingQuery :
             return expectUtils.ExpectUtils.createMongoQueryANN2(arr[0],arr[1])
         elif(len(arr)==3) :
             return expectUtils.ExpectUtils.createMongoQueryANN2(arr[0],arr[1],arr[2])
-
-##
-# getmQuery0 : if(yr<2018 & len(cQuery)=2) => Original Data
-# getmQuery1 : MongoQuery for ANN-I approach
-# getmQuery2 : MongoQuery for ANN-II approach (Backword) => getAllData from DB
-##
-def __main__():
-    mPath = "src\expect\expectingQuery.py"
-    try :
-
-        ob = ExpectingQuery()
-        return(ob.cQuery, ob.mQueryApproch0, ob.mQueryApproch1, ob.mQueryApproch2)
-
-    except AttributeError:
-        print('AttributeError : '+mPath)
-    except TypeError:
-        print('TypeError : '+mPath)
-    except Exception :
-        print('Unknone Exception '+mPath+' ==> ', Exception)

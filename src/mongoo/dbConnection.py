@@ -9,10 +9,10 @@ import lib.pymongo.__init__ as pymongo
 '''
 class MongoConnection :
     # @constructors
-    def __init__(self,connectOption,collectionOriginalName) :
-        self.url = connectOption.get("url")
-        self.dbName = connectOption.get("dbName1")
-        self.collectionName = connectOption.get("collectionName").get(collectionOriginalName)
+    def __init__(self,dbConfig,collectionOriginalName) :
+        self.url = dbConfig.get("url")
+        self.dbName = dbConfig.get("dbName1")
+        self.collectionName = dbConfig.get("collectionName").get(collectionOriginalName)
         (self.connection, self.collection) = (None, None)
     # @destructors
     def __del__(self) :

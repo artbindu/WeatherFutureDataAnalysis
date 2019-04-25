@@ -5,11 +5,11 @@ import src.share.utils.utils as utils
 ##
 class DataSheet :
     (Region, Year, Month, Data) = (None, None, None, None)
-    # @constructor
+    # @constructors
     # @(region,year,month,data) = (string,int,string,float)
     def __init__(self, region, year, month, data)  :
         (self.region,self.year,self.month,self.data) = (region,year,month,data)
-    # @destructor
+    # @destructors
     def __del__(self) :
         (self.region,self.year,self.month,self.data) = (None,None,None,None)
 
@@ -18,12 +18,12 @@ class DataSheet :
 ##
 class GroupingData :
     (dataList, dataGroup) = (None, None)
-    # @constructor
+    # @constructors
     # @dataList : excel-data
     def __init__(self, dataList)    :
         self.dataList = dataList
         self.dataGroup = self.processDataForGrouping()
-    # @destructor
+    # @destructors
     def __del__(self) :
         (self.dataList,self.dataGroup) = (None, None)
     # @method: create sheet type data using meta-class: DataSheet
@@ -50,12 +50,3 @@ class GroupingData :
                 arrayList.append(obj)
         # print('complete: grouping data for insert data in database in proper format')
         return arrayList
-
-##
-# @main function: calling from controller
-# @dataList: <class 'list'> :: excel file data
-# @return: <class 'list'[<class 'src.grouping.groupingData.DataSheet']> : {region/year/month/data}
-##
-def __main__(dataList)  :
-    ob = GroupingData(dataList)
-    return ob.dataGroup

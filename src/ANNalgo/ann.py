@@ -1,6 +1,7 @@
 
 import numpy as np
 
+# this is Meta class
 class Neural:
     def __init__(self,x,y,hidden_size,rate) :
         self.input_size=np.shape(x)[1]
@@ -76,28 +77,31 @@ class Neural:
         return t_result
 
 
+class ANN_Algo :
+    # @constructors
+    def __init__(self, iANN,oANN,maxData,qiANN)   :
+        # ANN I/O data
+        (self.input, self.output) = (np.array(iANN),np.array(oANN))
+        self.qInput = np.array(qiANN)
+        self.maxData = (int(maxData/100)+1)*100
+        # print(self.maxData)
 
+        # create Neural class object
+        self.obj = Neural(self.input/self.maxData, self.output/self.maxData, 8, 0.1)
+        # ann Training
+        self.annTraining(1000)
+        self.qOutput = self.annTesting()
 
-def __main__(iANN,oANN,maxData,qiANN)   :
-    # Input Data
-    a=np.array(iANN)
-    # Output Data
-    b=np.array(oANN)
+    def annTraining(self,iterationNo)   :
+        print('..........Learning Started..........')
+        self.obj.learn(iterationNo)
+        print('..........Learning Complete.........')
 
-    div = (int(maxData/100)+1)*100
-    # print('div= ', div)
-    obj = Neural(a/div,b/div,8,0.1)
-
-    print('..........Learning Started..........')
-    obj.learn(1000)
-    print('..........Learning Complete.........')
-
-    # Expecting Data
-    c=np.array(qiANN)
-    d=obj.test(c/div)
-    # print('Testing Complete')
-    # Expecting Output
-    qoANN = (d*div)
-    obj.__del__()
-
-    return(qoANN)
+    def annTesting(self)    :
+        print('..........Testing Start.............')
+        res = self.obj.test(self.qInput/self.maxData)
+        print('..........Testing Complete..........')
+        return res * self.maxData
+    # @destructors
+    def __del__(self) :
+        (self.input,self.output, self.qInput,self.qOutput, self.maxData) = (None,None, None,None, None)

@@ -2,13 +2,17 @@
 class ProcessOnlyData_of_ANN1 :
     def __del__(self) :
         self.lenANN = None
-        (self.onlyData,self.annInput,self.annOutput ) = (None,None,None)
+        (self.onlyData,self.annInput,self.annOutput,self.queryInput) = (None,None,None,None)
+        self.maxData = None
     # constructor
     def __init__(self, cQuery, allData, lenANN) :
         self.lenANN = lenANN
         self.onlyData = self.fetchingOnlyDataPart(allData)
         self.annInput = self.createANNInput()
         self.annOutput =  self.createANNOutput()
+        self.maxData = self.getMaxData()
+        # to ready ann data
+        self.readyIOdata()
     # calling from Constructor
     def fetchingOnlyDataPart(self,allData) :
         arr = []
@@ -35,37 +39,19 @@ class ProcessOnlyData_of_ANN1 :
             temp= []
             temp.append(self.onlyData[i])
             arr.append(temp)
-        temp= ['?']
+        temp= ['?'] # use it for dummy
         arr.append(temp)
         # print(arr)
         return arr
     # send data
     def getMaxData(self) :
         return max(self.onlyData)
-    def getANNinput(self) :
+    def readyIOdata(self) :
         self.queryInput = []
+        # last term of 'self.annInput' is 'self.queryInput'
         self.queryInput.append(self.annInput[len(self.annInput)-1])
+        # so, remaining first (n-1) data are 'self.annInput'
         del self.annInput[len(self.annInput)-1]
-        # print ('\n\nannInput: ',self.annInput,'\n\nqueryInput: ',self.queryInput)
-        return(self.annInput, self.queryInput)
-    def getANNoutput(self) :
-        self.queryOutput = []
-        self.queryOutput.append(self.annOutput[len(self.annOutput)-1])
+        # delete last term [?] part of 'self.annOutput' for 'self.annOutput'
         del self.annOutput[len(self.annOutput)-1]
-        # print('\n\nannOutput: ',self.annOutput,'\n\nannOutput: ',self.queryOutput)
-        return (self.annOutput, self.queryOutput)
-
-    
-
-    
-
-def __main__(clientQuery, array, lenANN) :
-    # array[0] contains ['REGION','YEAR','MONTH','DATA']
-    # so we avaoid it
-    ob = ProcessOnlyData_of_ANN1(clientQuery, array, lenANN)
-    # return({annInput,annQueryInput},  {annOutput,annQueryOutput},  {annMaxData})
-    (annInput, annQInput) = ob.getANNinput()
-    (annOutput, annQOutput) = ob.getANNoutput()
-    return(annInput,annQInput, annOutput,annQOutput, ob.getMaxData())
-
-
+        # print ('\n\nannInput: ',self.annInput,'\n\nqueryInput: ',self.queryInput,'\n\nannOutput: ',self.annOutput)
