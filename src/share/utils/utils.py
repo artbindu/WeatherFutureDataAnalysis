@@ -5,9 +5,9 @@ class Utils(object) :
     # searchItems : array[]
     @staticmethod
     def jsonData(searchItems) :
-        jsonConfig = json.load(open("src/share/config.json"))
-        # print(len(jsonConfig))
         try :
+            jsonConfig = json.load(open("src/share/config.json"))
+            # print(len(jsonConfig))
             data = jsonConfig
             for sItem in searchItems :
                 data = data.get(sItem)
@@ -18,7 +18,7 @@ class Utils(object) :
     # menu drive for main.py
     @staticmethod
     def menuDriven(choice)    :
-        print("\n\n----------------------------------------\n")
+        print("\n\n")
         print("\n0. Exit")
         print("\n1. POST Data from Excel Format to MongoDB")
         print("\n2. DELETE Data")

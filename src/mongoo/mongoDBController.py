@@ -1,43 +1,6 @@
 '''
-@ Class to create Mongo Connection
-@
-@
-'''
-import lib.pymongo.__init__ as pymongo
-
-class MongoConnection :
-    def __init__(self,connectOption,collectionOriginalName) :
-        self.url = connectOption.get("url")
-        self.dbName = connectOption.get("dbName1")
-        self.collectionName = connectOption.get("collectionName").get(collectionOriginalName)
-        (self.connection, self.collection) = (None, None)
-    def __del__(self) :
-        (self.url, self.dbName, self.collectionName) = (None,None,None)
-        (self.connection, self.collection) = (None,None)
-        
-    def start(self) :
-        try:
-            self.connection = pymongo.MongoClient(self.url)
-            self.collection = self.connection[self.dbName][self.collectionName]
-            print('established mongo connection')
-        except Exception:
-            print("Server not available: ", Exception)
-
-    def end(self) :
-        try:
-            if(self.connection) :
-                self.connection.close()
-                self.collection = None
-                print('closed mongo Connection')
-        except Exception:
-            print("Mongo Closed Problem: ", Exception)
-
-
-
-'''
-@ Class for Opertion in MongoDB
-@
-@
+@ Class for different Opertions in MongoDB
+@ operation are: POST(inset data in db), GET(fetch data from db), DELETE(delete data from db)
 '''
 import src.share.utils.dbUtils as dbUtils
 
@@ -129,41 +92,26 @@ class MongoRequest   :
         else :
             return None
 
+            
+
 """
-@ Main function 
-@
-@
+@ Main function : for controlling mongoDBController
 """
-def __main__(connectOption,collectionName,requestType, dataQuery=None) :
+def __main__(mongoCollection,requestType, dataQuery=None) :
     mPath = 'src/mongoo/mongoDBController.py'
     try :
-        db = MongoConnection(connectOption,collectionName)
-        # establishded connection
-        db.start()
-
-        # -------------------------------------------
-        try :
-            ob = MongoRequest(db.collection)
-            if(requestType == "POST")   :
-                ob.postData(dataQuery)
-                return ob.sms
-            elif(requestType == "DELETE")   :
-                ob.deleteData()
-                return ob.sms
-            elif(requestType == "GET") :
-                ob.getData(dataQuery)
-                return (ob.data, ob.sms)
-            else :
-                return 'method not define : '+mPath
-        except AttributeError:
-            print('AttributeError : '+mPath)
-        # -------------------------------------------
-
-        # closed connection
-        db.end()
+        ob = MongoRequest(mongoCollection)
+        if(requestType == "POST")   :
+            ob.postData(dataQuery)
+            return ob.sms
+        elif(requestType == "DELETE")   :
+            ob.deleteData()
+            return ob.sms
+        elif(requestType == "GET") :
+            ob.getData(dataQuery)
+            return (ob.data, ob.sms)
+        else :
+            return 'method not define : '+mPath
     except AttributeError:
         print('AttributeError : '+mPath)
-    except TypeError:
-        print('TypeError : '+mPath)
-    except Exception :
-        print('Unknone Exception '+mPath+' ==> ', Exception)
+
