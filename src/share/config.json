@@ -20,7 +20,7 @@
     },
 
     "ann" : {
-        "annLength" : 8,
+        "annLength" : 7,
         "hiddenSize": 5,
         "learningRate": 0.2
     }
