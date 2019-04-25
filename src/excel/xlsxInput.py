@@ -37,13 +37,3 @@ class ExcelInput :
                 tempArray.append(self.sheet.row_values(i)[j])
             arrayData.append(tempArray)
         return arrayData
-
-
-##
-# @main function: calling from controller
-# @path: 'string' :: excel file path
-# @return: <class 'list'> : i-th row <=> list i-th element
-##
-def __main__(path)  :
-    ob = ExcelInput(path)
-    return ob.data

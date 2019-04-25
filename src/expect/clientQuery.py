@@ -70,12 +70,16 @@ class ClientQuery :
                 "Searching Hints":{
                     1: "Search with first 3/4 letters of a State/Union Territory",
                     2: "Search with short name of each state; a.e. 'West Bengal' : 'WB'"
+                },
+                "Example" : {
+                    "West Bengal" : "WB or wes",
+                    "Jammu & Kashmir" : "JK or J&K or Jammu or jam"
                 }
             }
         elif(hintsSMS == 'MONTH') :
             hintsSMS = {
                 1: "Search with first three letters/ full Name",
-                2: "Search with Numeric Number with Months"
+                2: "Search with Numeric Number with Months a.e. 1,6,12"
             }
         try :
             while(1) :
@@ -106,22 +110,3 @@ class ClientQuery :
         else :
             sName = allData.get(stateName)
         return sName
-
-    
-
-# main method
-def __main__() :
-    mPath = "src\expect\clientQuery.py"
-    print(mPath)
-    
-    try :
-        ob = ClientQuery()
-        return ob.cQuery
-
-    except AttributeError:
-        print('AttributeError : '+mPath)
-    except TypeError:
-        print('TypeError : '+mPath)
-    except Exception :
-        print('Unknone Exception '+mPath+' ==> ', Exception)
-    

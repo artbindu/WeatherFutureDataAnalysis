@@ -9,7 +9,7 @@ import src.mongoo.dbConnection as dbConnect
 import src.expect.expectingQuery as expectingQuery
 import src.ANNalgo.annController1 as ANN1
 import src.ANNalgo.annController2 as ANN2
-import src.graph.plotGraphController as plotGraphExpectData
+import src.graph.plotGraphController as plotExpectData
 
 class Controller :
     db = None
@@ -27,20 +27,21 @@ class Controller :
     # @dataPath: string: excel file path
     ##
     def postData(self,dataPath)   :
-        (xlsxData, sheetData, sms, mPath) =(None, None, None, 'src/controller.postData()')
-
+        mPath ='src/controller.postData()'
         try :   
             # @method: take input from '.xlsx' i.e. excel format
             if(dataPath) :
-                xlsxData = xlsx.__main__(dataPath)
+                ob1 = xlsx.ExcelInput(dataPath)
+                # print('xlsxData', ob1.data)
             # @method : for creating a small sheet;  like:< RegionName--Year--Month--DataValue >
-            if(xlsxData) :
-                sheetData = groupingData.__main__(xlsxData)
+            if(ob1.data) :
+                ob2 = groupingData.GroupingData(ob1.data)
+                # print('sheetData', ob2.dataGroup)
             # @method: send data to mongoDB
-            if(sheetData) :
-                sms = mongoDB.__main__(self.db.collection,'POST', sheetData)
-                if(sms) :
-                    return(sms)
+            if(ob2.dataGroup) :
+                ob3 = mongoDB.MongoRequest(self.db.collection)
+                ob3.postData(ob2.dataGroup)
+                return(ob3.sms)
         except AttributeError:
             print('AttributeError : '+mPath)
         except TypeError:
@@ -53,12 +54,11 @@ class Controller :
     # @method: full clear mongo database
     ##
     def deleteData(self)    :
-        (query, Data, sms, mPath) =(None, None, None, 'src/controller.deleteData()')
+        mPath ='src/controller.deleteData()'
         try :   # @method: delete all data in mongodb
-            sms = mongoDB.__main__(self.db.collection,'DELETE')
-            if(sms) :
-                print('cont: ', sms)
-                return sms
+            ob1 = mongoDB.MongoRequest(self.db.collection)
+            ob1.deleteData()
+            return ob1.sms
         except AttributeError:
             print('AttributeError : '+mPath)
         except TypeError:
@@ -80,26 +80,29 @@ class Controller :
         try :
             print('---------going for fetch mongoSave data-----------')
             # expect mongoQuery for plot Data
-            (cQuery,mQuery0,mQuery1,mQuery2) = expectingQuery.__main__()
-            print('get all Data from Mongo')
+            obExp = expectingQuery.ExpectingQuery()
+            (cQuery,mQuery0,mQuery1,mQuery2) = (obExp.cQuery,obExp.mQuery0,obExp.mQuery1,obExp.mQuery2)
+            print('get all MongoQuery')
             # print('\n\\n\n\n\n\n\n',cQuery,'\n\n\n',mQuery0,'\n\n\n',mQuery1,'\n\n\n',mQuery2)
+            # create mongoDBController Class Object to fetch mongoData
+            obDB = mongoDB.MongoRequest(self.db.collection)
 
             doAgain = 'y'
             while(doAgain != 'N') :
-                ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            ## ~~~~~~~~~~~~~~~~~~~~~start-while-loop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 # ~~~~~~~~~~~~~~~~find DB Data Original if year<2018~~~~~~~~~~~~~
                 if(mQuery0) :
-                    (mongoData, sms) = mongoDB.__main__(self.db.collection,'GET', mQuery0)
-                    if(sms) :
-                        pData0 = mongoData
+                    obDB.getData(mQuery0)
+                    if(obDB.sms) :
+                        pData0 = obDB.data
                         # input(pData0)
                 ## ~~~~~~~~~~~~~~~~~~~~~~end-of-part00~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 # ~~~~~~~~~~~~~~~~~~~~~~~~~~Part-01~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 # ~~~~~~~~~~~~fetch data from MongoDB ANN2--approach1~~~~~~~~~~~~
                 for i in range(0, len(mQuery1)) :
-                    (mongoData, sms) = mongoDB.__main__(self.db.collection,'GET', mQuery1[i])
-                    if(sms) :
-                        mData1.append(mongoData)
+                    obDB.getData(mQuery1[i])
+                    if(obDB.sms) :
+                        mData1.append(obDB.data)
                         # print(mData1)
                 pData1 = ANN1.__main__(cQuery,mData1)
                 if(len(cQuery)==3 and len(pData1)==1) :
@@ -118,10 +121,10 @@ class Controller :
                 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~Part-02~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 # ~~~~~~~fetch data from MongoDB ANN2-approach2(Backword)~~~~~~~~
                 for i in range(0, len(mQuery2)) :
-                    (mongoData, sms) = mongoDB.__main__(self.db.collection,'GET', mQuery2[i])
-                    if(sms) :
-                        del mongoData[0]
-                        mData2.append(mongoData)
+                    obDB.getData(mQuery2[i])
+                    if(obDB.sms) :
+                        del obDB.data[0]
+                        mData2.append(obDB.data)
                         # print(mData2)
                 #chekingFuntion(cQuery, mData2)
                 pData2 = ANN2.__main__(cQuery,mData2)
@@ -141,13 +144,13 @@ class Controller :
                     statusAll.append("Original Data")
                 print('\n\n\n\n\n\n\n\n\n\nClient Query: ',cQuery)
                 if(len(cQuery)==2) :
-                    sms = self.graphControllerExpectData(pDataAll,'searchByRegionYear',statusAll)
+                    sms = self.plottingData(pDataAll,'searchByRegionYear',statusAll)
                 if(len(cQuery)==3) :
-                    sms = self.graphControllerExpectData(pDataAll,'searchByRegionYearMonth',statusAll)
+                    sms = self.plottingData(pDataAll,'searchByRegionYearMonth',statusAll)
                 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 (mData1,mData2,pData0,pData1,pData2,pDataAll,statusAll) = self.clearArrayData([mData1,mData2,pData0,pData1,pData2,pDataAll,statusAll])
                 doAgain = input('\n\nAgain Expect Result On Same Query: [Y/n] ').upper()
-            # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~end-of-while-loop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~end-while-loop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             return sms
 
         except AttributeError:
@@ -161,9 +164,10 @@ class Controller :
     # @use to plot graph for data expection result
     # @pData: array[[],[],..] data; use for ploting  || queryType: string
     ##
-    def graphControllerExpectData(self,pData,queryType,status=None) :
+    def plottingData(self,pData,queryType,status=None) :
         # going for graph ploting
-        sms = plotGraphExpectData.__main__(pData,queryType,status)
+        ob = plotExpectData.PlotController()
+        sms = ob.plotExpectData(pData,queryType,status)
         return sms
 
     ## use to clear arrayList data after it use

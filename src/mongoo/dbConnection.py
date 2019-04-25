@@ -9,10 +9,10 @@ import lib.pymongo.__init__ as pymongo
 '''
 class MongoConnection :
     # @constructors
-    def __init__(self,connectOption,collectionOriginalName) :
-        self.url = connectOption.get("url")
-        self.dbName = connectOption.get("dbName1")
-        self.collectionName = connectOption.get("collectionName").get(collectionOriginalName)
+    def __init__(self,dbConfig,collectionOriginalName) :
+        self.url = dbConfig.get("url")
+        self.dbName = dbConfig.get("dbName1")
+        self.collectionName = dbConfig.get("collectionName").get(collectionOriginalName)
         (self.connection, self.collection) = (None, None)
     # @destructors
     def __del__(self) :
@@ -23,7 +23,7 @@ class MongoConnection :
         try:
             self.connection = pymongo.MongoClient(self.url)
             self.collection = self.connection[self.dbName][self.collectionName]
-            print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nestablished mongo connection\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+            print('\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nestablished mongo connection\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         except Exception:
             print("Server not available: ", Exception)
     # @db_close_connection
@@ -32,6 +32,6 @@ class MongoConnection :
             if(self.connection) :
                 self.connection.close()
                 self.collection = None
-                print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nclosed mongo Connection\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n')
+                print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nclosed mongo Connection\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n')
         except Exception:
             print("Mongo Closed Problem: ", Exception)

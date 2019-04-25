@@ -39,26 +39,27 @@ class PlotGraph :
 # arrayData : 
 #
 ##
-def __main__(arrayData, queryType,status=None) :
-    (Region,Year,Month,Data) = ([],[],[],[])
-    # region,year,month,data :: 1-dim array
-    # r,y,m,d :: correspoinding header files
-    for i in range(0, len(arrayData)) :
-        (region,year,month,data, r,y,m,d) = plotUtils.dataProcessing.processDataForPloting(arrayData[i])
-        Region.append(region)
-        Year.append(year)
-        Month.append(month)
-        Data.append(data)
-        (color,sms) = plotUtils.dataProcessing.checkColor(i)
-        print('\n\ncolor= ',color,'\tStatus= ',sms,'\n Data: ',year,data)
+class PlotController :
+    def plotExpectData(self,arrayData, queryType,status=None) :
+        (Region,Year,Month,Data) = ([],[],[],[])
+        # region,year,month,data :: 1-dim array
+        # r,y,m,d :: correspoinding header files
+        for i in range(0, len(arrayData)) :
+            (region,year,month,data, r,y,m,d) = plotUtils.dataProcessing.processDataForPloting(arrayData[i])
+            Region.append(region)
+            Year.append(year)
+            Month.append(month)
+            Data.append(data)
+            (color,sms) = plotUtils.dataProcessing.checkColor(i)
+            print('\n\ncolor= ',color,'\tStatus= ',sms,'\n Data: ',year,data)
 
-    ob = PlotGraph()  #create object
-    if(queryType=="searchByRegionYear") :
-        ob.plotGraph(Region,Year,Month,Data, r,y,m,d)
-    elif( queryType=="searchByRegionYearMonth" ) :
-        ob.plotGraph(Region,Month,Year,Data, r,m,y,d)
-        return ob.sms
+        ob = PlotGraph()  #create object
+        if(queryType=="searchByRegionYear") :
+            ob.plotGraph(Region,Year,Month,Data, r,y,m,d)
+        elif( queryType=="searchByRegionYearMonth" ) :
+            ob.plotGraph(Region,Month,Year,Data, r,m,y,d)
+            return ob.sms
 
-    else :
-        print('did not plot graph for this query')
-        return None
+        else :
+            print('did not plot graph for this query')
+            return None
