@@ -19,5 +19,9 @@
         }
     },
 
-    "annLength" : 5
+    "ann" : {
+        "annLength" : 8,
+        "hiddenSize": 5,
+        "learningRate": 0.2
+    }
 }

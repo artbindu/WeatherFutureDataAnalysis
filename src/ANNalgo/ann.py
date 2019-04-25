@@ -1,12 +1,17 @@
 
 import numpy as np
+import src.share.utils.utils as utils
 
 # this is Meta class
 class Neural:
     def __init__(self,x,y,hidden_size,rate) :
         self.input_size=np.shape(x)[1]
         self.output_size=np.shape(y)[1]
-        self.hidden_size=hidden_size
+        self.hidden_size = hidden_size
+        # print('input size: ', self.input_size)
+        # print('output size: ', self.output_size)
+        # print('hidden size: ',self.hidden_size)
+
         self.lr=rate
 		# read ANN input output
         self.x=np.array(x)
@@ -87,7 +92,9 @@ class ANN_Algo :
         # print(self.maxData)
 
         # create Neural class object
-        self.obj = Neural(self.input/self.maxData, self.output/self.maxData, 8, 0.1)
+        hiddenSize = utils.Utils.jsonData(['ann','hiddenSize'])
+        learningRate = utils.Utils.jsonData(['ann','learningRate'])
+        self.obj = Neural(self.input/self.maxData, self.output/self.maxData, hiddenSize, learningRate)
         # ann Training
         self.annTraining(1000)
         self.qOutput = self.annTesting()

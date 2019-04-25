@@ -16,7 +16,7 @@ def __main__(cQuery,mData):
 
     st='client query:'+str(cQuery)+'\ndata length= '+str(len(mData))
     
-    (length, lenANN)=  (len(mData), utils.Utils.jsonData(['annLength']))
+    (length, lenANN)=  (len(mData), utils.Utils.jsonData(['ann','annLength']))
     for i in range(0,length) :
         while(1) :
             # this is query for a specific [Region, Year, Month]

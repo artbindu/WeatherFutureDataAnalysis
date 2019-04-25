@@ -17,7 +17,7 @@ def __main__(cQuery, mData) :
     print('i am with in ann controller2')
     for x in mData :
         print('\n',x)
-    (annInput,annOutput,annQInput,annQOutput,lenANN) = (None,None,None,None,utils.Utils.jsonData(['annLength']))
+    (annInput,annOutput,annQInput,annQOutput,lenANN) = (None,None,None,None,utils.Utils.jsonData(['ann','annLength']))
     (lastYr,lastMonth) = utils.Utils.findEndYearEndMonth(mData)
     (expectQuery,lastMonth) = (None,utils.Utils.month_string_to_number(lastMonth))
     print('LASTyEAR:     ',lastYr)
