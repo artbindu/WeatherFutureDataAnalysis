@@ -96,7 +96,8 @@ class ANN_Algo :
         learningRate = utils.Utils.jsonData(['ann','learningRate'])
         self.obj = Neural(self.input/self.maxData, self.output/self.maxData, hiddenSize, learningRate)
         # ann Training
-        self.annTraining(1000)
+        noOfTraining = utils.Utils.jsonData(['ann',"trainingIteration"])
+        self.annTraining(noOfTraining)
         self.qOutput = self.annTesting()
 
     def annTraining(self,iterationNo)   :

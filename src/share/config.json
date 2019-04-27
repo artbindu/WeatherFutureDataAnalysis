@@ -1,9 +1,9 @@
 {
-    "rawData" : {
+    "rawDataPath" : {
         "rainfall" : "data/RainFallData.xlsx"
     },
 
-    "mongoDB" : {
+    "mongoConfig" : {
         "url" : "localhost:27017",
         "dbName1" : "JUProject2019",
         "dbName" : "WeatherDataAnalysis",
@@ -13,7 +13,7 @@
     },
 
     "expectData" : {
-        "clientQuery" :{
+        "clientQuery" : {
             "searchingStates" : "src/share/indianStates.json",
             "searchingMonths" : "src/share/months.json"
         }
@@ -22,6 +22,7 @@
     "ann" : {
         "annLength" : 7,
         "hiddenSize": 5,
-        "learningRate": 0.2
+        "learningRate": 0.2,
+        "trainingIteration" : 999
     }
 }
