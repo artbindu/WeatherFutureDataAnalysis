@@ -3,8 +3,8 @@ import numpy as np
 import src.share.utils.utils as utils
 
 # lamda function
-sigmoid = lambda x : 1/(np.exp(-x)+1)  # f[-1,1] --> (0,1)
-derv_sigmoid = lambda x : x*(1-x)      # f[0,1]  --> [0,0.25] : at x=0.5, y=0.25
+sigmoid = lambda x : 1/(1+np.exp(-x))  # f[-1,1] --> (0,1)
+derv_sigmoid = lambda x : sigmoid(x)*(1-sigmoid(x))
 
 
 # this is Meta class
@@ -63,7 +63,7 @@ class Neural:
         self.b1+=np.sum(dk1,axis=0)
         self.b2+=np.sum(dk2,axis=0)
         self.b3+=np.sum(dk3,axis=0)
-        
+
     def learn(self,iteration):
         for i in range(iteration):
             self.forward()
