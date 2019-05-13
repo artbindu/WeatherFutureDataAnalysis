@@ -3,3 +3,4 @@ data/pic
 __pycache__
 ./*/*/__pycache__
 logger/*.log
+projectStructure.log

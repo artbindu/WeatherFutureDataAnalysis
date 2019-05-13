@@ -14,9 +14,6 @@ import src.share.utils.utils as utils
 #
 ##
 def __main__(cQuery, mData) :
-    print('i am with in ann controller2')
-    for x in mData :
-        print('\n',x)
     (annInput,annOutput,annQInput,annQOutput,lenANN) = (None,None,None,None,utils.Utils.jsonData(['ann','annLength']))
     (lastYr,lastMonth) = utils.Utils.findEndYearEndMonth(mData)
     (expectQuery,lastMonth) = (None,utils.Utils.month_string_to_number(lastMonth))
@@ -34,17 +31,15 @@ def __main__(cQuery, mData) :
         ob2 = dataProcessing2.ProcessOnlyData_of_ANN2(expectQuery,mData,lenANN)
         (annInput,annOutput,annQueryInput, annMaxData) = (ob2.annInput,ob2.annOutput,ob2.annQInput,ob2.maxData)
         # -------------------------------------
-        #---------ann algo calling-------------
+        # ---------ann algo calling-------------
         obANN = algoANN.ANN_Algo(annInput,annOutput,annMaxData, annQueryInput)
         annQueryOutput = obANN.qOutput
         result = round(annQueryOutput[0][0], 2)
-        print('result: ', result)
+        # print('result: ', result)
         expectQuery.append(result)
 
         # ---- insert expect data last part of mainData ---------
         print('result query: ',expectQuery)
-        print(expectQuery[2])
-        print(utils.Utils.month_string_to_number(expectQuery[2]))
         if(utils.Utils.month_string_to_number(expectQuery[2])%12 == 0) :
             tempArr = []
             tempArr.append(expectQuery)
@@ -54,14 +49,7 @@ def __main__(cQuery, mData) :
             tempArr.append(expectQuery)
             mData[len(mData)-1] = tempArr
         print(tempArr)
-        
-        #-----------end of data adding last part -----------------
-        '''
-        for x in mData:
-            print('\n\n\n',x)
-        input('continue?  :==>  ')
-        '''
-        # ---------------------------------
+        # -----------end of data adding last part -----------------
 
         # ----condition for stop while loop: when (expectQuery == cQuery)
         if(len(cQuery)==2) :
