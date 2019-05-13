@@ -18,6 +18,7 @@ class ClientQuery :
         (self.stateJFile, self.monthJFile, self.cQuery) = (None, None, None)
 
     def clientQuery(self) :
+        return(['KERALA',2019,'MAY'])
         try :            
             while(1)  :        
                 print("\n1. <searchByRegionYear> \n2. <searchByRegionYearMonth>")

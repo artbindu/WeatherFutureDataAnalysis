@@ -1,5 +1,5 @@
 # @why: package to read file from excel
-import lib.xlrd.__init__ as xlrd
+import xlrd.__init__ as xlrd
 
 ##
 #  @functionality: read/convert-to-array-type of excel data
