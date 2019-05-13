@@ -3,7 +3,7 @@
 @
 @
 '''
-import lib.pymongo.__init__ as pymongo
+import pymongo.__init__ as pymongo
 '''
 @ class to established mongo-connection
 '''
