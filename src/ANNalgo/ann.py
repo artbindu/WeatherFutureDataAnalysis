@@ -52,8 +52,6 @@ class Neural:
         
     def backward(self):
         dk3 = derv_sigmoid(self.z3)*(self.y-self.z3)
-        print('z3= ', self.z3, 'derv_sigmoid= ', derv_sigmoid(self.z1))
-        input()
         dk2 = derv_sigmoid(self.z2)*np.dot(dk3,self.w3.T)
         dk1 = derv_sigmoid(self.z1)*np.dot(dk2,self.w2.T)
         
