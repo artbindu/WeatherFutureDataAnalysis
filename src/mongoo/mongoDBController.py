@@ -83,6 +83,17 @@ class MongoRequest   :
             print('Faild To Mongo Data Fetch')
             self.sms = None
     ##
+    # @method to get a attributes distinct data
+    ##
+    def getDistinctData(self, mongoQuery) :
+        try :
+            self.data = self.mongoCollection.distinct(str(mongoQuery))
+            self.sms = "get data successfully"
+        except Exception :
+            print(Exception)
+            print('Failed To Mongo Distinct Data Fetch')
+            self.sms = None
+    ##
     # @ use to convert mongoJSON data to array list
     ##
     def convertJson2Array(self) :

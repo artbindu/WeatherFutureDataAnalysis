@@ -24,5 +24,9 @@
         "hiddenSize": 5,
         "learningRate": 0.2,
         "trainingIteration" : 999
+    },
+
+    "clustering" : {
+        "noOfClusterSet" : 7
     }
 }

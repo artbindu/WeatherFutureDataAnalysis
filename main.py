@@ -19,7 +19,8 @@ if __name__ == "__main__":
                 sms = obj.postData(dataPath)
 
             elif(choice =='2') :
-                sms = obj.deleteData()
+                # sms = obj.deleteData()
+                sms = obj.filturingData()
             
             elif(choice=='3') :
                 sms = obj.analysisData()
