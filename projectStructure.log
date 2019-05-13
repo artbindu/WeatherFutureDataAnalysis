@@ -3,7 +3,6 @@
     RainFallDataAnalysis
     │
     |    main.py
-    |
     |───src
     |   ├───controller
     |   │       controller.py
@@ -33,44 +32,6 @@
     |               utils.py
     |               dbUtils.py
     |               expectUtils.py
-    ├───data
-    │       RainFallData.xlsx
-    |
-    └───lib
-        ├───logging
-        ├───xlrd
-        ├───pymongo
-        ├───pip
-        └───matplotlib
-
-
-utils: Utility Class, also known as Helper class, is a class, which contains just static methods, 
-    it is stateless and cannot be instantiated. It contains a bunch of related methods, so they can be 
-    reused across the application. 
-    As an example consider Apache StringUtils, CollectionUtils or java.lang.Math.
-
-config: configuration files (or config files) are files used to configure the parameters and 
-    initial settings of the Application.
-
-xlrd: library for developers to extract data from Excel spreadsheet files.
-    Xlrd is a Python module for extracting data from Excel spreadsheet files. 
-    It can be used to extract data from new and old Excel spreadsheets on any platform.
-    The package itself is pure Python with no dependencies on modules or packages outside 
-    the standard Python distribution. It has strong support for Excel dates and is Unicode-aware.
-
-pymongo: PyMongo is a Python distribution containing tools for working with MongoDB, and is the 
-    recommended way to work with MongoDB from Python. This documentation attempts to explain everything 
-    you need to know to use PyMongo.
-
-pip: pip is a package-management system used to install and manage software packages written in Python. 
-    ... pip is a recursive acronym for "Pip Installs Packages".
-
-matplotlib: Matplotlib is a plotting library for the Python programming language and its numerical mathematics 
-    extension NumPy. It provides an object-oriented API for embedding plots into applications using general-purpose 
-    GUI toolkits like Tkinter, wxPython, Qt, or GTK+
-
-NumPy: For any scientific project, NumPy is the tool to know. It has been built to work with the 
-    N-dimensional array, linear algebra, random number, Fourier transform, etc. It can be integrated to 
-    C/C++ and Fortran. NumPy is a programming language that deals with multi-dimensional arrays and matrices.
-
-
+    └───data
+            RainFallData.xlsx
+  

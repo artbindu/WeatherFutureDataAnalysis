@@ -14,13 +14,13 @@ class ProcessOnlyData_of_ANN2 :
     # cQuery = ['BIHAR', 2018, 'JANUARY']  ; i.e. length=3 all-time
     def createANNIO(self,cQuery,arrData) :
         (stYear,stMonth,endYear,endMonth) =  self.find_First_End_Details(arrData)
-        print('starting status:', stYear,stMonth)
-        print('ending status:', endYear,endMonth)
+        # print('starting status:', stYear,stMonth)
+        # print('ending status:', endYear,endMonth)
 
         (qYear,qMonth) = (cQuery[1],cQuery[2])
         l1 = len(arrData)
         l2 = len(arrData[l1-1])
-        print('tRow= ',l1,'tCol= ',l2)
+        # print('tRow= ',l1,'tCol= ',l2)
         # print('\n\n\n\n================data==============')
         # ckLast: take data from 2017--to--1951
         # ckFirst: for understand which is 'annQueryInput'
@@ -49,8 +49,7 @@ class ProcessOnlyData_of_ANN2 :
 
             self.annInput.reverse()
             self.annOutput.reverse()
-
-        print('create ANN I/O data')
+        # print('create ANN I/O data')
 
     def maxValue(self, b) :
         if(self.maxData==None) :

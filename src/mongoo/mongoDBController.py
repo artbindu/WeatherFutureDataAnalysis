@@ -43,18 +43,24 @@ class MongoRequest   :
             self.sms="\n----Insertd/updated "+str(count)+" Data Successfully----\n\n"
         except  Exception:
             print(Exception)
-            return 'Faild To Mongo Connection'
+            print('Faild To Mongo Data Insert')
+            self.sms = None
     ##
     # @method: fetch data from mongodb
     ##
     def deleteData(self)    :
-        mongoQuery = dbUtils.MongoDBUtils.deleteQuery()
-        self.data = self.mongoCollection.remove()
-        # print(self.data)
-        if(self.data['ok'] == 1.0 and self.data['n'] > 0) :
-            self.sms = ('successfully clear ',self.data['n'],' from collection: ')
-        else :
-            self.sms = ('empty collection')
+        try :
+            mongoQuery = dbUtils.MongoDBUtils.deleteQuery()
+            self.data = self.mongoCollection.remove()
+            # print(self.data)
+            if(self.data['ok'] == 1.0 and self.data['n'] > 0) :
+                self.sms = ('successfully clear ',self.data['n'],' from collection: ')
+            else :
+                self.sms = ('empty collection')
+        except Exception :
+            print(Exception)
+            print('Faild To Mongo Data Delete')
+            self.sms = None
 
     ##
     # @method: fetch specific data from mongodb
@@ -63,14 +69,19 @@ class MongoRequest   :
     # @return mongoQuery data in array format [[region,year,month,data],[],[],...]
     ##
     def getData(self, mongoQuery)   :
-        (self.data,self.sms) = (None,None)
-        self.data = self.mongoCollection.find(mongoQuery)        
-        count = self.data.count()
-        if(count==0) :
+        try :
             (self.data,self.sms) = (None,None)
-        else :
-            arrData = self.convertJson2Array()
-            (self.data, self.sms) = (arrData, "get data successfully")
+            self.data = self.mongoCollection.find(mongoQuery)        
+            count = self.data.count()
+            if(count==0) :
+                (self.data,self.sms) = (None,None)
+            else :
+                arrData = self.convertJson2Array()
+                (self.data, self.sms) = (arrData, "get data successfully")
+        except Exception :
+            print(Exception)
+            print('Faild To Mongo Data Fetch')
+            self.sms = None
     ##
     # @ use to convert mongoJSON data to array list
     ##

@@ -5,7 +5,7 @@ import src.controller.controller as controller
 
 if __name__ == "__main__":
     try :
-        dbConfig = utils.Utils.jsonData(["mongoDB"])
+        dbConfig = utils.Utils.jsonData(["mongoConfig"])
         obj = controller.Controller(dbConfig,'rainfall')
         
         (choice, sms) = ('1', None)
@@ -15,7 +15,7 @@ if __name__ == "__main__":
                 break
 
             elif(choice == '1')   :  # insert data from excel and store it mongoDb
-                dataPath = utils.Utils.jsonData(["rawData","rainfall"])
+                dataPath = utils.Utils.jsonData(["rawDataPath","rainfall"])
                 sms = obj.postData(dataPath)
 
             elif(choice =='2') :

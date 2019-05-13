@@ -10,12 +10,7 @@ import src.ANNalgo.ann as algoANN
 import src.share.utils.utils as utils
 
 
-def __main__(cQuery,mData):
-    #print('expect query: ',cQuery)
-    #print('data: ',mData)
-
-    st='client query:'+str(cQuery)+'\ndata length= '+str(len(mData))
-    
+def __main__(cQuery,mData):    
     (length, lenANN)=  (len(mData), utils.Utils.jsonData(['ann','annLength']))
     for i in range(0,length) :
         while(1) :
@@ -29,7 +24,7 @@ def __main__(cQuery,mData):
             print('\n\nannQInput: ',annQueryInput)
             print(' Maximum Data: ',annMaxData)
 
-            #using ANN to check % of chance of get result
+            #using ANN to check % of chance of get result 
             obANN = algoANN.ANN_Algo(annInput,annOutput,annMaxData, annQueryInput)
             annQueryOutput = obANN.qOutput
 
