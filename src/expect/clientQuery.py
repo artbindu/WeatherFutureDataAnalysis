@@ -10,7 +10,8 @@ class ClientQuery :
     def __init__(self) :
         self.stateJFile = utils.Utils.jsonData(["expectData","clientQuery","searchingStates"])
         self.monthJFile = utils.Utils.jsonData(["expectData","clientQuery","searchingMonths"])
-        print(self.stateJFile, self.monthJFile)
+        # print(self.stateJFile, self.monthJFile)
+        # self.cQuery = ['KERALA', 2020, 'MAY']
         self.cQuery = self.clientQuery()
         # print(self.cQuery)
         
@@ -21,8 +22,8 @@ class ClientQuery :
         # return(['KERALA',2019,'MAY'])
         try :            
             while(1)  :        
-                print("\n1. <searchByRegionYear> \n2. <searchByRegionYearMonth>")
-                choice = input("\n\n\tEnter your choice: ")
+                print("\n1. expect by Region & Year  \n2. expect by Region, Year & Month")
+                choice = input("\n\tEnter your choice: ")
 
                 # print('json file: ',self.stateJFile)
                 allStatesData = json.load(open(self.stateJFile))
@@ -93,7 +94,7 @@ class ClientQuery :
                         searchStateArea = input(sms2).upper()
                         findStateArea = self.searchingFromJSON(statesData,searchState,searchStateArea)
                         if(findStateArea) :
-                            print(findStateArea)
+                            print(str(findStateArea))
                 if(findState==None or findStateArea==None) :
                     print(hintsSMS)
                 else :

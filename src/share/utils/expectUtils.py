@@ -1,5 +1,4 @@
 
-
 class ExpectUtils(object) :
     """
     # generate Query

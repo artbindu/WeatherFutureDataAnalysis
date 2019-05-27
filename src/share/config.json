@@ -20,9 +20,13 @@
     },
 
     "ann" : {
-        "annLength" : 7,
+        "annLength" : 5,
         "hiddenSize": 5,
         "learningRate": 0.2,
         "trainingIteration" : 999
+    },
+
+    "clustering" : {
+        "noOfClusterSet" : 7
     }
 }

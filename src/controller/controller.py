@@ -10,6 +10,8 @@ import src.expect.expectingQuery as expectingQuery
 import src.ANNalgo.annController1 as ANN1
 import src.ANNalgo.annController2 as ANN2
 import src.graph.plotGraphController as plotExpectData
+# part 04
+import src.clustering.filturing as filturing
 
 class Controller :
     db = None
@@ -22,6 +24,27 @@ class Controller :
     # @destructors
     def __del__(self) :
         self.db.end()
+
+    ##
+    #
+    ##
+    def filturingData(self) :
+        obDB = mongoDB.MongoRequest(self.db.collection)
+        # get all region
+        obDB.getDistinctData("REGION")
+        # print(obDB.data)
+
+        ob0 = filturing.Filturing(obDB.data)
+        mData = []
+        for x in ob0.mQuery :
+            obDB.getData(x)
+            if(obDB.sms) :
+                mData.append(obDB.data)
+                # input(obDB.data)
+                ob0.filturingData(obDB.data)
+                input()
+
+
     ## 
     # @method: transfer data from Excel --to--> mongoDB
     # @dataPath: string: excel file path

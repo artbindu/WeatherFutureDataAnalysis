@@ -17,7 +17,7 @@ def __main__(cQuery, mData) :
     (annInput,annOutput,annQInput,annQOutput,lenANN) = (None,None,None,None,utils.Utils.jsonData(['ann','annLength']))
     (lastYr,lastMonth) = utils.Utils.findEndYearEndMonth(mData)
     (expectQuery,lastMonth) = (None,utils.Utils.month_string_to_number(lastMonth))
-    print('LASTyEAR:     ',lastYr)
+    print('LAST-YEAR:     ',lastYr)
     while(1) :
         # function to generate newQuery for ANN-II
         lastMonth += 1
