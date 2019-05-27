@@ -17,10 +17,10 @@ if __name__ == "__main__":
             elif(choice == '1')   :  # insert data from excel and store it mongoDb
                 dataPath = utils.Utils.jsonData(["rawDataPath","rainfall"])
                 sms = obj.postData(dataPath)
+                # sms = obj.filturingData()
 
             elif(choice =='2') :
                 sms = obj.deleteData()
-                # sms = obj.filturingData()
             
             elif(choice=='3') :
                 sms = obj.analysisData()
