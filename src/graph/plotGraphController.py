@@ -17,8 +17,8 @@ class PlotGraph :
         self.sms = None   
     # @xlabel_sms,ylabel_sms,title_sms: 'string'
     def DrawGraph(self,xlabel_sms,ylabel_sms,title_sms)   :
-        plt.xlabel("---------"+xlabel_sms+"------------>")
-        plt.ylabel("---------"+ylabel_sms+"------------>")
+        plt.xlabel("--------- "+xlabel_sms+" ------------>")
+        plt.ylabel("--------- "+ylabel_sms+" ------------>")
         plt.title(title_sms)
         plt.show()
         self.sms = "done graph ploting"

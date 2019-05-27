@@ -18,12 +18,11 @@ class Utils(object) :
     # menu drive for main.py
     @staticmethod
     def menuDriven(choice)    :
-        print("\n")
-        print("\n0. Exit")
-        print("\n1. POST Data from Excel Format to MongoDB")
-        print("\n2. DELETE Data")
-        print("\n3. ANALYSIS Data with Both Approach")
-        return (input("\n\n\t"+choice))
+        print("0. Exit")
+        print("\n1. Insert/Update Data from Excel Format to MongoDB")
+        print("\n2. Delete/Clear Data")
+        print("\n3. Predict Future Data with Both Approach")
+        return (input("\n\t"+choice))
 
     # # chaking variable data type & return particular data type
     @staticmethod

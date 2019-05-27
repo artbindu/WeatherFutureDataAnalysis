@@ -40,7 +40,8 @@ class MongoRequest   :
                     record = None
                 if(count>0 and count%maxLimit==0)   :
                     print("..."+str(count)+" data inserted/updated......")
-            self.sms="\n----Insertd/updated "+str(count)+" Data Successfully----\n\n"
+            print('....data insert/update complete....')
+            self.sms="----Insertd/updated "+str(count)+" Data Successfully----"
         except  Exception:
             print(Exception)
             print('Faild To Mongo Data Insert')

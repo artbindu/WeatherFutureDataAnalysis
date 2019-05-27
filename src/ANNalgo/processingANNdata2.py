@@ -1,5 +1,5 @@
 import src.share.utils.utils as utils
-
+ 
 class ProcessOnlyData_of_ANN2 :
     def __del__(self) :
         (self.lenANN,self.maxData) = (None,None)
@@ -42,7 +42,7 @@ class ProcessOnlyData_of_ANN2 :
                 self.annQInput.append(filterIData)
                 ckFirst = 1
             else:
-                self.annInput.append(filterIData)                    
+                self.annInput.append(filterIData)                   
                 filterOData.append(arrData[k-1][utils.Utils.month_string_to_number(cQuery[2])][3])
                 self.maxData = self.maxValue(filterOData)
                 self.annOutput.append(filterOData)

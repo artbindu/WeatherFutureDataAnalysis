@@ -1,5 +1,6 @@
 
 import numpy as np
+import math
 import src.share.utils.utils as utils
 
 # lamda function
@@ -51,6 +52,7 @@ class Neural:
         self.z3 = sigmoid(h3)
         
     def backward(self):
+        # here error of forward calculation is: (self.y-self.z3)
         dk3 = derv_sigmoid(self.z3)*(self.y-self.z3)
         dk2 = derv_sigmoid(self.z2)*np.dot(dk3,self.w3.T)
         dk1 = derv_sigmoid(self.z1)*np.dot(dk2,self.w2.T)
@@ -88,19 +90,32 @@ class ANN_Algo :
     # @constructors
     def __init__(self, iANN,oANN,maxData,qiANN)   :
         # ANN I/O data
-        (self.input, self.output) = (np.array(iANN),np.array(oANN))
-        self.qInput = np.array(qiANN)
         self.maxData = (int(maxData/100)+1)*100
-        # print(self.maxData)
-
+        (self.input, self.output) = (np.array(iANN),np.array(oANN))
+        self.norm = self.normalizedData()
+        self.qInput = np.array(qiANN)
+        print('maxdata: ', self.maxData, 'norm data: ', self.norm)
+        
         # create Neural class object
         hiddenSize = utils.Utils.jsonData(['ann','hiddenSize'])
         learningRate = utils.Utils.jsonData(['ann','learningRate'])
-        self.obj = Neural(self.input/self.maxData, self.output/self.maxData, hiddenSize, learningRate)
+        # create object
+        self.obj = Neural(self.input/(self.maxData*self.norm), self.output/(self.maxData*self.norm), hiddenSize, learningRate)
         # ann Training
         noOfTraining = utils.Utils.jsonData(['ann',"trainingIteration"])
         self.annTraining(noOfTraining)
         self.qOutput = self.annTesting()
+
+    # norm: sets_element/squre_root(sum(sets_element*sets_element))
+    def normalizedData(self) :
+        sqSum = 0
+        for i in range (0, len(self.input)) :
+            for y in (self.input[i]) :
+                sqSum += math.pow(y/self.maxData, 2)
+            for y in (self.output[i]) :
+                sqSum += math.pow(y/self.maxData, 2)
+        # normalized data
+        return(math.sqrt(sqSum))
 
     def annTraining(self,iterationNo)   :
         print('..........Learning Started..........')
@@ -109,9 +124,9 @@ class ANN_Algo :
 
     def annTesting(self)    :
         print('..........Testing Start.............')
-        res = self.obj.test(self.qInput/self.maxData)
+        res = self.obj.test(self.qInput/(self.maxData*self.norm))
         print('..........Testing Complete..........')
-        return res * self.maxData
+        return res * (self.maxData*self.norm)
     # @destructors
     def __del__(self) :
         (self.input,self.output, self.qInput,self.qOutput, self.maxData) = (None,None, None,None, None)
