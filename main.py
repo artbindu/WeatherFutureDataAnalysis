@@ -16,8 +16,11 @@ if __name__ == "__main__":
 
             elif(choice == '1')   :  # insert data from excel and store it mongoDb
                 dataPath = utils.Utils.jsonData(["rawDataPath","rainfall"])
+                # insert data
                 sms = obj.postData(dataPath)
-                # sms = obj.filturingData()
+                # filturing data :: problem
+                # if(input('clustring data[Y/n]: ').lower() == 'y') :
+                #     sms = obj.filturingData()
 
             elif(choice =='2') :
                 sms = obj.deleteData()

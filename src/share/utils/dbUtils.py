@@ -3,7 +3,7 @@ import src.share.utils.utils as utils
 class MongoDBUtils(object) :
     # POST endpoint
     @staticmethod
-    def postQuery(id,reg,yr,mon,data) :
+    def postQuery(id=None,reg=None,yr=None,mon=None,data=None) :
         id = utils.Utils.int_or_float_or_str(id)
         data = utils.Utils.int_or_float_or_str(data)
         reg = utils.Utils.int_or_float_or_str(reg)
@@ -12,7 +12,6 @@ class MongoDBUtils(object) :
         # print(id,data,reg,yr,mon)
         query = {
             "findQuery" : {
-                "_id": id,
                 "REGION": reg,
                 "YEAR": yr,
                 "MONTH": mon
@@ -30,6 +29,7 @@ class MongoDBUtils(object) :
                 "DATA": data
             }
         }
+        # return(         findQuery,             updateQuery,          insertQuery  )
         return (query.get("findQuery"),query.get("setQuery"),query.get("insertQuery"))
 
     # DELETE endpoint

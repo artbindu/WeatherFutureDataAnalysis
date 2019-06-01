@@ -6,6 +6,7 @@ import src.share.utils.utils as utils
 # lamda function
 sigmoid = lambda x : 1/(1+np.exp(-x))  # f[-1,1] --> (0,1)
 derv_sigmoid = lambda x : sigmoid(x)*(1-sigmoid(x))
+remender = lambda x,y : 0 if(int(x)%y==0) else 1
 
 
 # this is Meta class
@@ -90,8 +91,10 @@ class ANN_Algo :
     # @constructors
     def __init__(self, iANN,oANN,maxData,qiANN)   :
         # ANN I/O data
-        self.maxData = (int(maxData/100)+1)*100
+        # if maxData = 123, then return 130
+        self.maxData = 10 * float(int(maxData)//10 + remender(maxData,10))
         (self.input, self.output) = (np.array(iANN),np.array(oANN))
+        self.norm = 1
         self.norm = self.normalizedData()
         self.qInput = np.array(qiANN)
         print('maxdata: ', self.maxData, 'norm data: ', self.norm)
@@ -129,27 +132,5 @@ class ANN_Algo :
         return res * (self.maxData*self.norm)
     # @destructors
     def __del__(self) :
-        (self.input,self.output, self.qInput,self.qOutput, self.maxData) = (None,None, None,None, None)
-
-
-
-
-
-'''
-=============================================
-        Error chaking in each step
-=============================================
-w11 = self.w1 + self.lr*np.dot(self.x.T,dk1)
-w22 = self.w2 + self.lr*np.dot(self.z1.T,dk2)
-w33 = self.w3 + self.lr*np.dot(self.z2.T,dk3)
-self.chakingError(self.w1,w11)
-self.chakingError(self.w2,w22)
-self.chakingError(self.w3,w33)
-(self.w1,self.w2,self.w3) = (w11,w22,w33)
-
-def chakingError(self,array1, array2) :
-    print('error chaking')
-    print(np.setdiff1d(array1, array2))
-    input()
-
-'''
+        (self.maxData, self.norm) = (None, None)
+        (self.input, self.output, self.qInput, self.qOutput) = (None, None, None, None)

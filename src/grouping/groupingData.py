@@ -37,7 +37,7 @@ class GroupingData :
             # col-2::col-13 : (JAN	FEB	MAR	APR	MAY	JUN	JUL	AUG	SEP	OCT	NOV	DEC)
             for j in range(2, 14)   :
                 if(self.dataList[i][j]=='NA')   :
-                    continue
+                    self.dataList[i][j] = 0
                 count += 1
                 # create Object of 'DastSheet' class
                 region =  utils.Utils.int_or_float_or_str(self.dataList[i][0])

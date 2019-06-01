@@ -12,6 +12,7 @@ import src.ANNalgo.annController2 as ANN2
 import src.graph.plotGraphController as plotExpectData
 # part 04
 import src.clustering.filturing as filturing
+import src.share.utils.filterUtils as futils
 
 class Controller :
     db = None
@@ -30,20 +31,30 @@ class Controller :
     ##
     def filturingData(self) :
         obDB = mongoDB.MongoRequest(self.db.collection)
-        # get all region
+        # get all distinct region
         obDB.getDistinctData("REGION")
         # print(obDB.data)
+        # get mongoQuery for filtering data
+        mQuery = futils.FilterUtils.selectedRegionMonthQuery(obDB.data)
+        # print(mQuery)
 
-        ob0 = filturing.Filturing(obDB.data)
-        mData = []
-        for x in ob0.mQuery :
-            obDB.getData(x)
+        ob0 = filturing.Filturing()
+        for query in mQuery :
+            # print('for query --> ', query)
+            obDB.getData(query)
+            # print('old data: ', obDB.data)
+            # print('length: ', len(obDB.data)-1) # for header file
             if(obDB.sms) :
-                mData.append(obDB.data)
-                # input(obDB.data)
-                ob0.filturingData(obDB.data)
-                input()
-
+                # send_Old_Data for filturing and get_New_Data
+                newData = ob0.filturingData(obDB.data)
+                # print('update data: ', newData)
+                # print('length: ', len(newData))
+                # obDB.updateData(newData)
+                print('.....filtering Complete: ',newData[0][0],' 1951-2017 ', newData[0][2], ' data......')
+                if(newData[0][0]=='BIHAR') :
+                    input('check this data....................')
+                # input()
+            
 
     ## 
     # @method: transfer data from Excel --to--> mongoDB
