@@ -27,7 +27,7 @@ class Controller :
         self.db.end()
 
     ##
-    #
+    # @method: get all distinct region from db, using clustering upate noise data and update db data
     ##
     def filturingData(self) :
         obDB = mongoDB.MongoRequest(self.db.collection)
@@ -37,25 +37,24 @@ class Controller :
         # get mongoQuery for filtering data
         mQuery = futils.FilterUtils.selectedRegionMonthQuery(obDB.data)
         # print(mQuery)
-
         ob0 = filturing.Filturing()
+        tData = []
         for query in mQuery :
             # print('for query --> ', query)
             obDB.getData(query)
-            # print('old data: ', obDB.data)
+            # remove header part --> [REGION, YEAR, MONTH, DATA]
+            Arr = obDB.data
+            del Arr[0]
             # print('length: ', len(obDB.data)-1) # for header file
             if(obDB.sms) :
                 # send_Old_Data for filturing and get_New_Data
-                newData = ob0.filturingData(obDB.data)
-                # print('update data: ', newData)
-                # print('length: ', len(newData))
-                # obDB.updateData(newData)
-                print('.....filtering Complete: ',newData[0][0],' 1951-2017 ', newData[0][2], ' data......')
-                if(newData[0][0]=='BIHAR') :
-                    input('check this data....................')
-                # input()
+                newData = ob0.filturingData(Arr)
+                # update data into database
+                obDB.updateData(newData)
+                tData.clear()
+                print('\n\n\n\n.....filtering Complete: ',newData[0][0],' 1951-2017 ', newData[0][2], ' data......')
+                # input('update data into data base')
             
-
     ## 
     # @method: transfer data from Excel --to--> mongoDB
     # @dataPath: string: excel file path
