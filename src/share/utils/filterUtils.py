@@ -1,15 +1,19 @@
+import src.share.utils.utils as utils
 
-class FilterUtils :
-    # methods to search all Regions
+class FilterUtils(object) :
+    # method to searching mongoo query of specific region and months
     @staticmethod
-    def searchAllRegion() :
-        regions = ["JAMMU & KASHMIR", "HIMACHAL PRADESH", "WEST RAJASTHAN"]
-        return (regions)
-    def queryForDistinctRegion(self) :
-        return None
-    def queryForRegionMonth(self,reg,mon) :
-        query={ 
+    def selectedRegionMonthQuery(allRegion) :
+        mQuery = []
+        for reg in allRegion :
+            for imon in range(0, 12) :
+                mQuery.append(FilterUtils.query_SearchRegionMonth(reg, utils.Utils.month_number_to_string(imon)))
+        # print('all mongoo query: ', mQuery)
+        return mQuery
+    @staticmethod
+    def query_SearchRegionMonth(reg, mon) :
+        query = { 
                 "REGION" : {"$eq":str(reg)},
-                "MONTH":{'$regex':'.*'+str(mon)}
+                "MONTH":{'$eq':str(mon)}
             }
         return query

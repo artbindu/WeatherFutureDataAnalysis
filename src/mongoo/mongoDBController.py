@@ -46,6 +46,7 @@ class MongoRequest   :
             print(Exception)
             print('Faild To Mongo Data Insert')
             self.sms = None
+
     ##
     # @method: fetch data from mongodb
     ##
@@ -62,7 +63,6 @@ class MongoRequest   :
             print(Exception)
             print('Faild To Mongo Data Delete')
             self.sms = None
-
     ##
     # @method: fetch specific data from mongodb
     # @calling 'custom'
@@ -82,6 +82,21 @@ class MongoRequest   :
         except Exception :
             print(Exception)
             print('Faild To Mongo Data Fetch')
+            self.sms = None
+    ##
+    # @method: update data use for filtering
+    ##
+    def updateData(self, data) :
+        try :
+            for x in data :
+                (fQuery,uQuery,iQuery) = dbUtils.MongoDBUtils.postQuery(None, x[0],x[1],x[2],x[3])
+                # print('findQuery', fQuery, 'updateQuery', uQuery)
+                record = self.mongoCollection.find_one(fQuery)
+                if(record is not None)  :
+                    record = self.mongoCollection.update_one(fQuery,uQuery)
+        except Exception :
+            print(Exception)
+            print('Faild To Mongo Data Update')
             self.sms = None
     ##
     # @method to get a attributes distinct data

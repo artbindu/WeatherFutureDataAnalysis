@@ -12,6 +12,7 @@ import src.ANNalgo.annController2 as ANN2
 import src.graph.plotGraphController as plotExpectData
 # part 04
 import src.clustering.filturing as filturing
+import src.share.utils.filterUtils as futils
 
 class Controller :
     db = None
@@ -26,25 +27,34 @@ class Controller :
         self.db.end()
 
     ##
-    #
+    # @method: get all distinct region from db, using clustering upate noise data and update db data
     ##
     def filturingData(self) :
         obDB = mongoDB.MongoRequest(self.db.collection)
-        # get all region
+        # get all distinct region
         obDB.getDistinctData("REGION")
         # print(obDB.data)
-
-        ob0 = filturing.Filturing(obDB.data)
-        mData = []
-        for x in ob0.mQuery :
-            obDB.getData(x)
+        # get mongoQuery for filtering data
+        mQuery = futils.FilterUtils.selectedRegionMonthQuery(obDB.data)
+        # print(mQuery)
+        ob0 = filturing.Filturing()
+        tData = []
+        for query in mQuery :
+            # print('for query --> ', query)
+            obDB.getData(query)
+            # remove header part --> [REGION, YEAR, MONTH, DATA]
+            Arr = obDB.data
+            del Arr[0]
+            # print('length: ', len(obDB.data)-1) # for header file
             if(obDB.sms) :
-                mData.append(obDB.data)
-                # input(obDB.data)
-                ob0.filturingData(obDB.data)
-                input()
-
-
+                # send_Old_Data for filturing and get_New_Data
+                newData = ob0.filturingData(Arr)
+                # update data into database
+                obDB.updateData(newData)
+                tData.clear()
+                print('\n\n\n\n.....filtering Complete: ',newData[0][0],' 1951-2017 ', newData[0][2], ' data......')
+                # input('update data into data base')
+            
     ## 
     # @method: transfer data from Excel --to--> mongoDB
     # @dataPath: string: excel file path

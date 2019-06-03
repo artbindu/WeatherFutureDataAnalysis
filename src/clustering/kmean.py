@@ -22,8 +22,8 @@ class Clustering_cMean :
                 minData = minimumData(minData, self.arrData[i][3])
             sumData += self.arrData[i][3]
             count += 1
-        print('maximum and minnum data: ', maxData, minData)
-        print('avg data: ', sumData/count)
+        # print('maximum and minnum data: ', maxData, minData)
+        # print('avg data: ', sumData/count)
 
         self.clusterSet = None
         if(self.arrData)  :
@@ -49,7 +49,7 @@ class Clustering_cMean :
         ar=[]
         for i in range(0,noOfCluster)   :
             ar.append(round(minData+diff*(i+.5),2))
-        print('mean data-set: ', ar)
+        # print('mean data-set: ', ar)
         return ar
     
     # main algorithems
@@ -70,7 +70,7 @@ class Clustering_cMean :
             meanArr = self.findMean()
             inc = self.compareMeanAfterExecution(meanArr)
             if(inc==-1) :
-                print('no of iteration: ',count)
+                # print('no of iteration: ',count)
                 count = inc
             else    :
                 count += inc
@@ -100,7 +100,7 @@ class Clustering_cMean :
             for j in range(1,rowLength)   :
                 sum+=self.clusterSet[i][j][3]
             meanArr.append(round(sum/rowLength,2))
-        print(meanArr)
+        # print(meanArr)
         return meanArr  # which is mean of cluster
     ## 02
     # @method: find a point goes to in which cluster set
