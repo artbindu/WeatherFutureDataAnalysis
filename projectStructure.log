@@ -12,6 +12,9 @@
     |   │       groupingData.py
     |   ├───mongoo
     |   │       mongoDBController.py
+    |   ├───clustering
+    |   │       filturing.py
+    |   │       kmean.py
     |   ├───expect
     |   │       clientQuery.py
     |   │       expectingQuery.py
@@ -34,7 +37,3 @@
     |               expectUtils.py
     └───data
             RainFallData.xlsx
-
-
-
-  
