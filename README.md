@@ -1,8 +1,16 @@
-# Future Rainfall Data Prediction Project
+# Future Rainfall Data Prediction
 
-**Version: 1.0.0**
+**Version: 1.1.0**
 
 Future rainfall prediction system using Artificial Neural Networks (ANN) and K-means clustering. Processes historical Indian rainfall data (1951-2017) to predict future rainfall patterns using dual ANN approaches.
+
+## Academic Project
+
+**Institution:** [Jadavpur University](https://www.jadavpuruniversity.in/)  
+**Department:** [Computer Science and Engineering](https://cse.jadavpuruniversity.in/program)
+**Program:** MCA 3rd Year Project  
+**Supervisor:** [Prof. Sarmistha Neogy](https://cse.jadavpuruniversity.in/faculty/sarmistha-neogy)
+**Developer:** Biswasindhu Mandal
 
 ## Repository
 
