@@ -12,8 +12,8 @@
     |   ├───mongoo
     |   │       mongoDBController.py
     |   ├───clustering
-    |   │       filturing.py
-    |   │       kmean.py
+    |   │       filtering.py
+    |   │       kMeanAlgoAlgo.py
     |   ├───expect
     |   │       clientQuery.py
     |   │       expectingQuery.py

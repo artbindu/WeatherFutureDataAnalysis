@@ -3,13 +3,13 @@
 class dataProcessing(object) :
     ##
     # @method: to fetch Data from CSV file and stor it into list
-    # @csvfile: <class '_io.TextIOWrapper'>
+    # @csv-file: <class '_io.TextIOWrapper'>
     # @plots: <class '_csv.reader'>
     # @region, year, month, data :: <class 'list'>
     # @return: <class 'list'>
     ##
     @staticmethod
-    def processDataForPloting(arrayData) :
+    def processDataForPlotting(arrayData) :
         (region, year, month, data) = ([],[],[],[])
         # print('length: ',len(arrayData))
         if(len(arrayData)>1) :
@@ -23,7 +23,7 @@ class dataProcessing(object) :
             return(region,year,month,data, arrayData[0][0],arrayData[0][1],arrayData[0][2],arrayData[0][3])
         return None
 
-    # ploting color
+    # plotting color
     @staticmethod
     def checkColor(i) :
         colorStatus = {

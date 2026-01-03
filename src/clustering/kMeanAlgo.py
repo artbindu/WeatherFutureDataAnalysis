@@ -22,14 +22,14 @@ class Clustering_cMean :
                 minData = minimumData(minData, self.arrData[i][3])
             sumData += self.arrData[i][3]
             count += 1
-        # print('maximum and minnum data: ', maxData, minData)
+        # print('maximum and minimum data: ', maxData, minData)
         # print('avg data: ', sumData/count)
 
         self.clusterSet = None
         if(self.arrData)  :
             self.meanSet = self.findClusteringMeans(utils.Utils.jsonData(["clustering", "noOfClusterSet"]),maxData,minData)
             self.clusterSet = []
-            # calling to clustering algorithems
+            # calling to clustering algorithm
             self.clusterSet = self.clusteringAlgo()
             # assemble self.clusterSet
             self.clusterSet = self.assembleClusterSet()
@@ -39,7 +39,7 @@ class Clustering_cMean :
         l = len(self.clusterSet)
         for i in range(0,l-1)  :
             for j in range(i+1,l) :
-                # sorting clustering mean in 'ACCENDING ORDER' i.e. small--big
+                # sorting clustering mean in 'ASCENDING ORDER' i.e. small--big
                 if(self.clusterSet[j][0]<self.clusterSet[i][0]) :
                     (self.clusterSet[i], self.clusterSet[j]) = (self.clusterSet[j], self.clusterSet[i])
         return self.clusterSet   
@@ -52,7 +52,7 @@ class Clustering_cMean :
         # print('mean data-set: ', ar)
         return ar
     
-    # main algorithems
+    # main algorithm
     def clusteringAlgo(self)    :
         if (self.clusterSet == None)    :
             return None

@@ -1,10 +1,10 @@
-import src.clustering.kmean as kmean
+import src.clustering.kMeanAlgo as kMeanAlgo
 
-class Filturing :
+class filtering :
     # method to filtering data of a particular region and months
-    def filturingData(self, arrData) :
+    def filteringData(self, arrData) :
         # clustering data :: part_01
-        ob = kmean.Clustering_cMean(arrData)
+        ob = kMeanAlgo.Clustering_cMean(arrData)
         clusterData = ob.clusterSet
         # reset data of low_&_high cluster data
         for i in range(0, len(clusterData)) :

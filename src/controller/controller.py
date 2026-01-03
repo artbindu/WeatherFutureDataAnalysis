@@ -11,8 +11,8 @@ import src.ANNalgo.annController1 as ANN1
 import src.ANNalgo.annController2 as ANN2
 import src.graph.plotGraphController as plotExpectData
 # part 04
-import src.clustering.filturing as filturing
-import src.share.utils.filterUtils as futils
+import src.clustering.filtering as filtering
+import src.share.utils.filterUtils as fUtils
 
 class Controller :
     db = None
@@ -29,26 +29,27 @@ class Controller :
     ##
     # @method: get all distinct region from db, using clustering upate noise data and update db data
     ##
-    def filturingData(self) :
+    def filteringData(self) :
         obDB = mongoDB.MongoRequest(self.db.collection)
         # get all distinct region
         obDB.getDistinctData("REGION")
         # print(obDB.data)
         # get mongoQuery for filtering data
-        mQuery = futils.FilterUtils.selectedRegionMonthQuery(obDB.data)
+        mQuery = fUtils.FilterUtils.selectedRegionMonthQuery(obDB.data)
         # print(mQuery)
-        ob0 = filturing.Filturing()
+        ob0 = filtering.filtering()
         tData = []
         for query in mQuery :
-            # print('for query --> ', query)
+            print('for query --> ', query)
             obDB.getData(query)
             # remove header part --> [REGION, YEAR, MONTH, DATA]
-            Arr = obDB.data
-            del Arr[0]
+            Arr = list(obDB.data) if obDB.data else []
+            if(Arr and len(Arr)>0) :
+                del Arr[0]
             # print('length: ', len(obDB.data)-1) # for header file
             if(obDB.sms) :
-                # send_Old_Data for filturing and get_New_Data
-                newData = ob0.filturingData(Arr)
+                # send_Old_Data for filtering and get_New_Data
+                newData = ob0.filteringData(Arr)
                 # update data into database
                 obDB.updateData(newData)
                 tData.clear()
@@ -65,22 +66,20 @@ class Controller :
             # @method: take input from '.xlsx' i.e. excel format
             if(dataPath) :
                 ob1 = xlsx.ExcelInput(dataPath)
-                # print('xlsxData', ob1.data)
             # @method : for creating a small sheet;  like:< RegionName--Year--Month--DataValue >
             if(ob1.data) :
                 ob2 = groupingData.GroupingData(ob1.data)
-                # print('sheetData', ob2.dataGroup)
             # @method: send data to mongoDB
             if(ob2.dataGroup) :
                 ob3 = mongoDB.MongoRequest(self.db.collection)
                 ob3.postData(ob2.dataGroup)
                 return(ob3.sms)
-        except AttributeError:
-            print('AttributeError : '+mPath)
-        except TypeError:
-            print('TypeError : '+mPath)
-        except Exception :
-            print('Unknone Exception '+mPath+' ==> ', Exception)
+        except AttributeError as e:
+            print('AttributeError : '+mPath+' ==> ', str(e))
+        except TypeError as e:
+            print('TypeError : '+mPath+' ==> ', str(e))
+        except Exception as e:
+            print('Unknown Exception '+mPath+' ==> ', str(e))
 
 
     ##
@@ -92,12 +91,12 @@ class Controller :
             ob1 = mongoDB.MongoRequest(self.db.collection)
             ob1.deleteData()
             return ob1.sms
-        except AttributeError:
-            print('AttributeError : '+mPath)
-        except TypeError:
-            print('TypeError : '+mPath)
-        except Exception :
-            print('Unknone Exception '+mPath+' ==> ', Exception)
+        except AttributeError as e:
+            print('AttributeError : '+mPath+' ==> ', str(e))
+        except TypeError as e:
+            print('TypeError : '+mPath+' ==> ', str(e))
+        except Exception as e:
+            print('Unknown Exception '+mPath+' ==> ', str(e))
 
 
     ##
@@ -165,7 +164,7 @@ class Controller :
                 print('--------complete to fetch ANN-II(with BackwordMonths) data-----------')
                 # ~~~~~~~~~~~~~~~~~~~~~end-of-Part02~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
                 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                # ~~~~~~~~~~~~~~~~~~~~~~~ploting graph~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                # ~~~~~~~~~~~~~~~~~~~~~~~plotting graph~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 if(len(pData1)>0) :
                     pDataAll.append(pData1)
                     statusAll.append("ANN-I Data")
@@ -186,19 +185,19 @@ class Controller :
             ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~end-while-loop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             return sms
 
-        except AttributeError:
-            print('AttributeError : '+mPath)
-        except TypeError:
-            print('TypeError : '+mPath)
-        except Exception :
-            print('Unknone Exception '+mPath+' ==> ', Exception)
+        except AttributeError as e:
+            print('AttributeError : '+mPath+' ==> ', str(e))
+        except TypeError as e:
+            print('TypeError : '+mPath+' ==> ', str(e))
+        except Exception as e:
+            print('Unknown Exception '+mPath+' ==> ', str(e))
 
     ##
     # @use to plot graph for data expection result
-    # @pData: array[[],[],..] data; use for ploting  || queryType: string
+    # @pData: array[[],[],..] data; use for plotting  || queryType: string
     ##
     def plottingData(self,pData,queryType,status=None) :
-        # going for graph ploting
+        # going for graph plotting
         ob = plotExpectData.PlotController()
         sms = ob.plotExpectData(pData,queryType,status)
         return sms

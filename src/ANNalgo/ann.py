@@ -3,10 +3,10 @@ import numpy as np
 import math
 import src.share.utils.utils as utils
 
-# lamda function
+# lambda function
 sigmoid = lambda x : 1/(1+np.exp(-x))  # f[-1,1] --> (0,1)
 derv_sigmoid = lambda x : sigmoid(x)*(1-sigmoid(x))
-remender = lambda x,y : 0 if(int(x)%y==0) else 1
+reminder = lambda x,y : 0 if(int(x)%y==0) else 1
 
 
 # this is Meta class
@@ -92,12 +92,12 @@ class ANN_Algo :
     def __init__(self, iANN,oANN,maxData,qiANN)   :
         # ANN I/O data
         # if maxData = 123, then return 130
-        self.maxData = 10 * float(int(maxData)//10 + remender(maxData,10))
+        self.maxData = 10 * float(int(maxData)//10 + reminder(maxData,10))
         (self.input, self.output) = (np.array(iANN),np.array(oANN))
         self.norm = 1
         self.norm = self.normalizedData()
         self.qInput = np.array(qiANN)
-        print('maxdata: ', self.maxData, 'norm data: ', self.norm)
+        print('maxData: ', self.maxData, 'norm data: ', self.norm)
         
         # create Neural class object
         hiddenSize = utils.Utils.jsonData(['ann','hiddenSize'])

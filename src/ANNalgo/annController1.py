@@ -3,7 +3,7 @@
  @use while loop bcz: in our DB there is data from 1951 to 2017
  @if we expect data for Year>=2019;
  @ for 2019 Expect Year we have to analysis data on 2018 data 
- @ for 2020 Expect Year we fhave to analysis data on 2018 and thend 2019(which depends on 2018 expect data)
+ @ for 2020 Expect Year we have to analysis data on 2018 and then 2019(which depends on 2018 expect data)
 '''
 import src.ANNalgo.processingANNdata1 as dataProcessing1
 import src.ANNalgo.ann as algoANN

@@ -1,6 +1,6 @@
 '''
-@ Class for different Opertions in MongoDB
-@ operation are: POST(inset data in db), GET(fetch data from db), DELETE(delete data from db)
+@ Class for different Operations in MongoDB
+@ operation are: POST(insert data in db), GET(fetch data from db), DELETE(delete data from db)
 '''
 import src.share.utils.dbUtils as dbUtils
 
@@ -11,9 +11,11 @@ class MongoRequest   :
         # print('\n\n\ncollection: ', self.mongoCollection)
         self.data = None
         self.sms = None
+
     # @destructor
     def __del__(self) :
-        (self.mongoCollection, self.data, self.sms) = (None, None, None) 
+        (self.mongoCollection, self.data, self.sms) = (None, None, None)
+
     ##
     # @method: store data in mongodb
     # @return 
@@ -41,10 +43,10 @@ class MongoRequest   :
                 if(count>0 and count%maxLimit==0)   :
                     print("..."+str(count)+" data inserted/updated......")
             print('....data insert/update complete....')
-            self.sms="----Insertd/updated "+str(count)+" Data Successfully----"
-        except  Exception:
-            print(Exception)
-            print('Faild To Mongo Data Insert')
+            self.sms="----Inserted/updated "+str(count)+" Data Successfully----"
+        except Exception as e:
+            print(type(e).__name__, ':', e)
+            print('Failed To Mongo Data Insert')
             self.sms = None
 
     ##
@@ -53,16 +55,18 @@ class MongoRequest   :
     def deleteData(self)    :
         try :
             mongoQuery = dbUtils.MongoDBUtils.deleteQuery()
-            self.data = self.mongoCollection.remove()
+            # Use delete_many instead of deprecated remove()
+            self.data = self.mongoCollection.delete_many({})
             # print(self.data)
-            if(self.data['ok'] == 1.0 and self.data['n'] > 0) :
-                self.sms = ('successfully clear ',self.data['n'],' from collection: ')
+            if(self.data.deleted_count > 0) :
+                self.sms = ('successfully clear ',self.data.deleted_count,' from collection: ')
             else :
                 self.sms = ('empty collection')
-        except Exception :
-            print(Exception)
-            print('Faild To Mongo Data Delete')
+        except Exception as e:
+            print(type(e).__name__, ':', e)
+            print('Failed To Mongo Data Delete')
             self.sms = None
+
     ##
     # @method: fetch specific data from mongodb
     # @calling 'custom'
@@ -72,17 +76,19 @@ class MongoRequest   :
     def getData(self, mongoQuery)   :
         try :
             (self.data,self.sms) = (None,None)
-            self.data = self.mongoCollection.find(mongoQuery)        
-            count = self.data.count()
+            self.data = self.mongoCollection.find(mongoQuery)
+            # Use count_documents instead of deprecated count()
+            count = self.mongoCollection.count_documents(mongoQuery)
             if(count==0) :
                 (self.data,self.sms) = (None,None)
             else :
                 arrData = self.convertJson2Array()
                 (self.data, self.sms) = (arrData, "get data successfully")
-        except Exception :
-            print(Exception)
-            print('Faild To Mongo Data Fetch')
+        except Exception as e:
+            print(type(e).__name__, ':', e)
+            print('Failed To Mongo Data Fetch')
             self.sms = None
+
     ##
     # @method: update data use for filtering
     ##
@@ -94,10 +100,11 @@ class MongoRequest   :
                 record = self.mongoCollection.find_one(fQuery)
                 if(record is not None)  :
                     record = self.mongoCollection.update_one(fQuery,uQuery)
-        except Exception :
-            print(Exception)
-            print('Faild To Mongo Data Update')
+        except Exception as e:
+            print(type(e).__name__, ':', e)
+            print('Failed To Mongo Data Update')
             self.sms = None
+
     ##
     # @method to get a attributes distinct data
     ##
@@ -105,10 +112,11 @@ class MongoRequest   :
         try :
             self.data = self.mongoCollection.distinct(str(mongoQuery))
             self.sms = "get data successfully"
-        except Exception :
-            print(Exception)
+        except Exception as e:
+            print(type(e).__name__, ':', e)
             print('Failed To Mongo Distinct Data Fetch')
             self.sms = None
+
     ##
     # @ use to convert mongoJSON data to array list
     ##

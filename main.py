@@ -20,7 +20,7 @@ if __name__ == "__main__":
                 sms = obj.postData(dataPath)
                 # filtering data and update database
                 if(input('clustering data[Y/n]: ').lower() == 'y') :
-                    sms = obj.filturingData()
+                    sms = obj.filteringData()
 
             elif(choice =='2') :
                 sms = obj.deleteData()
