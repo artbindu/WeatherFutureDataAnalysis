@@ -1,9 +1,16 @@
 # @python Data Analytics Programming
 import src.share.utils.utils as utils
 import src.controller.controller as controller
+from version import __version__, __description__
 # ------------Rainfall--Data--Analysis------------------------
 
 if __name__ == "__main__":
+    print(f"\n{'='*60}")
+    print(f"  Future Rainfall Data Prediction Project")
+    print(f"  Version: {__version__}")
+    print(f"  {__description__}")
+    print(f"{'='*60}\n")
+    
     try :
         dbConfig = utils.Utils.jsonData(["mongoConfig"])
         obj = controller.Controller(dbConfig,'rainfall')

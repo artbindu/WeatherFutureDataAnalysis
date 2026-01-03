@@ -7,7 +7,7 @@ class Utils(object) :
     def jsonData(searchItems) :
         try :
             jsonConfig = json.load(open("src/share/config.json"))
-            print(len(jsonConfig))
+            # print('jsonConfig Length: ', len(jsonConfig))
             data = jsonConfig
             for sItem in searchItems :
                 data = data.get(sItem)

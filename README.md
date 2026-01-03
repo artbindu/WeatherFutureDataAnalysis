@@ -1,6 +1,8 @@
-# Weather Data Analysis Project
+# Future Rainfall Data Prediction Project
 
-Rainfall data analysis and prediction system using Artificial Neural Networks (ANN) and K-means clustering. Processes historical Indian rainfall data (1951-2017) and predicts future patterns using dual ANN approaches.
+**Version: 1.0.0**
+
+Future rainfall prediction system using Artificial Neural Networks (ANN) and K-means clustering. Processes historical Indian rainfall data (1951-2017) to predict future rainfall patterns using dual ANN approaches.
 
 ## Repository
 
