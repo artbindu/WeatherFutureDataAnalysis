@@ -24,7 +24,7 @@ class Utils(object) :
         print("\n3. Predict Future Data with Both Approach")
         return (input("\n\t"+choice))
 
-    # # chaking variable data type & return particular data type
+    # checking variable data type & return particular data type
     @staticmethod
     # method to return actual data type
     def int_or_float_or_str(s):

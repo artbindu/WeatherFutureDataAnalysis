@@ -1,6 +1,89 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+.idea_modules/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb
+
+# PyTest
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Project Specific
 lib
 data/pic
-__pycache__
-./*/*/__pycache__
 logger/*.log
 projectStructure.log
+
+# Data files (uncomment if you don't want to track data)
+# data/
+# *.xlsx
+# *.xls
+# *.csv
+
+# MongoDB
+*.mongo
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Sensitive configuration
+# Note: Keep minimal config files in repo (e.g., config.json with defaults)
+# Only ignore files containing secrets, credentials, or environment-specific settings
+# *.env
+# .env
+# config.local.json
+
+# Documentation screenshots (if too large)
+# document/screenshots/

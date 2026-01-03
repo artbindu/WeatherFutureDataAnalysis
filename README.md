@@ -21,14 +21,14 @@ install Robo3T(GUI of MongoDB): *https://robomongo.org/*\\
 
  - [x] matplotlib(draw graph): `pip install matplotlib`
 
-
-
 # How to Run:
+
 open cmd: `python main.py`
 
 checkDB: `open 'MongoDB Compass Community' from your PC(Windows)` or `open 'Robo3T' after install it`
 
 choose option
+
 ```text
         0. Exit
 

@@ -18,8 +18,8 @@ if __name__ == "__main__":
                 dataPath = utils.Utils.jsonData(["rawDataPath","rainfall"])
                 # insert data into database
                 sms = obj.postData(dataPath)
-                # filturing data and update database
-                if(input('clustring data[Y/n]: ').lower() == 'y') :
+                # filtering data and update database
+                if(input('clustering data[Y/n]: ').lower() == 'y') :
                     sms = obj.filturingData()
 
             elif(choice =='2') :
