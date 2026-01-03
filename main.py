@@ -21,12 +21,12 @@ if __name__ == "__main__":
                 # filtering data and update database
                 if(input('clustering data[Y/n]: ').lower() == 'y') :
                     sms = obj.filteringData()
-
-            elif(choice =='2') :
-                sms = obj.deleteData()
             
-            elif(choice=='3') :
+            elif(choice=='2') :
                 sms = obj.analysisData()
+
+            elif(choice =='3') :
+                sms = obj.deleteData()
             
             else :
                 sms = 'invalid entry'

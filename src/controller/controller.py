@@ -151,17 +151,17 @@ class Controller :
                 # ~~~~~~~~~~~~~~~~~~~~~~~~~~end-of-Part01~~~~~~~~~~~~~~~~~~~~~~~~        
                 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~Part-02~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                # ~~~~~~~fetch data from MongoDB ANN2-approach2(Backword)~~~~~~~~
+                # ~~~~~~~fetch data from MongoDB ANN2-approach2(Backward)~~~~~~~~
                 for i in range(0, len(mQuery2)) :
                     obDB.getData(mQuery2[i])
                     if(obDB.sms) :
                         del obDB.data[0]
                         mData2.append(obDB.data)
                         # print(mData2)
-                #chekingFuntion(cQuery, mData2)
+                #checkingFunction(cQuery, mData2)
                 pData2 = ANN2.__main__(cQuery,mData2)
                 # input(pData2)
-                print('--------complete to fetch ANN-II(with BackwordMonths) data-----------')
+                print('--------complete to fetch ANN-II(with BackwardMonths) data-----------')
                 # ~~~~~~~~~~~~~~~~~~~~~end-of-Part02~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
                 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 # ~~~~~~~~~~~~~~~~~~~~~~~plotting graph~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -170,7 +170,7 @@ class Controller :
                     statusAll.append("ANN-I Data")
                 if(len(pData2)>0) :
                     pDataAll.append(pData2)
-                    statusAll.append("ANN-II(Backword) Data")
+                    statusAll.append("ANN-II(Backward) Data")
                 if(len(pData0)>0) :
                     pDataAll.append(pData0)
                     statusAll.append("Original Data")
@@ -193,7 +193,7 @@ class Controller :
             print('Unknown Exception '+mPath+' ==> ', str(e))
 
     ##
-    # @use to plot graph for data expection result
+    # @use to plot graph for data expectation result
     # @pData: array[[],[],..] data; use for plotting  || queryType: string
     ##
     def plottingData(self,pData,queryType,status=None) :

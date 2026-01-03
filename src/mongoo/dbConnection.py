@@ -1,7 +1,5 @@
 '''
 @ Class to create Mongo Connection
-@
-@
 '''
 import pymongo.__init__ as pymongo
 from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError
@@ -22,10 +20,12 @@ class MongoConnection :
         })
         (self.connection, self.collection) = (None, None)
         self.line = '\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'
+
     # @destructors
     def __del__(self) :
         (self.url, self.dbName, self.collectionName) = (None,None,None)
         (self.connection, self.collection) = (None,None)
+
     # @db_start_connection
     def start(self) :
         try:
@@ -50,6 +50,7 @@ class MongoConnection :
             print(f"MongoDB Connection failed: {str(e)}")
         except Exception as e:
             print(f"MongoDB Connection error: {str(e)}")
+
     # @db_close_connection
     def end(self) :
         try:

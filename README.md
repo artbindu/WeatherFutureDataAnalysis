@@ -25,7 +25,7 @@ git clone https://artbindu@bitbucket.org/artbindu/dataanalysisproject_weather.gi
 **MongoDB Setup Resources:**
 - **MongoDB Community Server**: https://www.mongodb.com/try/download/community
 - **MongoDB Shell**: https://www.mongodb.com/try/download/shell
-- **MongoDB Compass** (GUI): https://www.mongodb.com/try/download/compass
+- **Robo3T** (GUI): https://github.com/Studio3T/robomongo/releases/tag/v1.4.4
 - **Configuration Tutorial**: https://www.youtube.com/watch?v=tC49Nzm6SyM
 
 **Install Python Dependencies:**
@@ -39,9 +39,10 @@ pip install xlrd openpyxl pymongo numpy matplotlib
 1. Start MongoDB on `localhost:27017`
 2. Run: `python main.py`
 3. Choose option:
+   - `0` - Exit program
    - `1` - Import Excel data (optional clustering)
-   - `2` - Clear database
-   - `3` - Predict & visualize data
+   - `2` - Analyze & visualize data
+   - `3` - Clear database
 
 ## Configuration
 
@@ -67,6 +68,12 @@ src/
 ├── graph/           # Matplotlib plotting
 └── share/           # Config & utilities
 ```
+
+## Documentation
+
+[Project documentation](./document/project-details.pdf)
+
+[Project presentation](./document/project-ppt.pptx)
 
 ## Technical Details
 
