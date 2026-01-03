@@ -7,16 +7,14 @@ Future rainfall prediction system using Artificial Neural Networks (ANN) and K-m
 ## Academic Project
 
 **Institution:** [Jadavpur University](https://www.jadavpuruniversity.in/)  
-**Department:** [Computer Science and Engineering](https://cse.jadavpuruniversity.in/program)
-**Program:** MCA 3rd Year Project  
-**Supervisor:** [Prof. Sarmistha Neogy](https://cse.jadavpuruniversity.in/faculty/sarmistha-neogy)
+**Department:** [Computer Science and Engineering](https://cse.jadavpuruniversity.in/program) \
+**Program:** MCA 3rd Year Project  \
+**Supervisor:** [Prof. Sarmistha Neogy](https://cse.jadavpuruniversity.in/faculty/sarmistha-neogy)\
 **Developer:** Biswasindhu Mandal
 
-## Repository
-
-```bash
-git clone https://artbindu@bitbucket.org/artbindu/dataanalysisproject_weather.git
-```
+## Documentation
+[📝 Project documentation](./document/project-details.pdf) \
+[💻 Project presentation](./document/project-ppt.pptx)
 
 ## Features
 
@@ -25,6 +23,12 @@ git clone https://artbindu@bitbucket.org/artbindu/dataanalysisproject_weather.gi
 - **ANN-I**: Predicts from same month across years
 - **ANN-II**: Predicts using previous 5 months
 - Matplotlib visualization comparing predictions
+
+## Repository
+
+```bash
+git clone https://artbindu@bitbucket.org/artbindu/dataanalysisproject_weather.git
+```
 
 ## Installation
 
@@ -78,12 +82,6 @@ src/
 ├── graph/           # Matplotlib plotting
 └── share/           # Config & utilities
 ```
-
-## Documentation
-
-[Project documentation](./document/project-details.pdf)
-
-[Project presentation](./document/project-ppt.pptx)
 
 ## Technical Details
 
