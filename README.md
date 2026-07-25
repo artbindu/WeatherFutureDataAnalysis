@@ -1,4 +1,4 @@
-# Future Rainfall Data Prediction: <img src="https://artbindu-app.github.io/whoami/images/institution/Jadavpur_University_Logo_wiki.svg" height="30"> 
+# Future Rainfall Data Prediction: [<img src="https://artbindu-app.github.io/whoami/images/institution/Jadavpur_University_Logo_wiki.svg" height="30">](https://jadavpuruniversity.in/) 
 
 **Version: 1.1.0**
 
