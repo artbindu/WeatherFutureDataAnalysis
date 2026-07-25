@@ -33,7 +33,7 @@ git clone https://artbindu@bitbucket.org/artbindu/dataanalysisproject_weather.gi
 ## Installation
 
 **Required:**
-- Python 3.12.x
+- Python 3.12.x (Updated)
 - MongoDB 8.0+ Community Edition
 
 **MongoDB Setup Resources:**
