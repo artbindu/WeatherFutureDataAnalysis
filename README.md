@@ -1,4 +1,4 @@
-# Future Rainfall Data Prediction
+# Future Rainfall Data Prediction: <img src="https://artbindu-app.github.io/whoami/images/institution/Jadavpur_University_Logo_wiki.svg" height="30"> 
 
 **Version: 1.1.0**
 
@@ -6,11 +6,11 @@ Future rainfall prediction system using Artificial Neural Networks (ANN) and K-m
 
 ## Academic Project
 
-**Institution:** [Jadavpur University](https://www.jadavpuruniversity.in/)  
+**Institution:** [Jadavpur University](https://jadavpuruniversity.in/)  
 **Department:** [Computer Science and Engineering](https://cse.jadavpuruniversity.in/program) \
 **Program:** MCA 3rd Year Project  \
 **Supervisor:** [Prof. Sarmistha Neogy](https://cse.jadavpuruniversity.in/faculty/sarmistha-neogy)\
-**Developer:** Biswasindhu Mandal
+**Developer:** [Biswasindhu Mandal](https://artbindu-app.github.io/whoami/index.html)
 
 ## Documentation
 [📝 Project documentation](./document/project-details.pdf) \
